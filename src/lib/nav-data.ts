@@ -20,7 +20,7 @@ export const NAV_GROUPS: NavGroup[] = [
           {
             href: "/#module-orchestration",
             label: "AI Orchestration Engine",
-            desc: "Plan and execute full attack workflows across 185+ security tools.",
+            desc: "Plan and execute full attack workflows across 120+ security tools.",
           },
           {
             href: "/#module-cloud",
@@ -37,8 +37,9 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         heading: "Capabilities",
         links: [
+          { href: "/#how-it-works", label: "How it works" },
           { href: "/#capabilities", label: "Key capabilities" },
-          { href: "/#tool-coverage", label: "185+ tool coverage" },
+          { href: "/#tool-coverage", label: "120+ tool coverage" },
           { href: "/#cloud-coverage", label: "Supported cloud environments" },
           { href: "/#compliance", label: "Compliance frameworks" },
           { href: "/#customization", label: "Configuration & customization" },
@@ -85,7 +86,7 @@ export const NAV_GROUPS: NavGroup[] = [
         heading: "Learn",
         links: [
           { href: "/docs", label: "Documentation" },
-          { href: "/#platform", label: "Product walkthroughs" },
+          { href: "/#how-it-works", label: "Product walkthroughs" },
           { href: "/#tool-coverage", label: "Tool coverage" },
         ],
       },

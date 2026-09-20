@@ -18,6 +18,8 @@ import { LandingFaq } from "@/components/landing/LandingFaq";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingNav } from "@/components/landing/LandingNav";
 import { ModuleShowcase } from "@/components/landing/ModuleShowcase";
+import { WorkflowDemo } from "@/components/landing/WorkflowDemo";
+import { WORKFLOWS } from "@/components/landing/workflow-data";
 import { DemoCta } from "@/components/landing/DemoCta";
 import { SecurityShowcase } from "@/components/landing/SecurityShowcase";
 import { AttackPathGraph } from "@/components/motion/AttackPathGraph";
@@ -243,6 +245,19 @@ export function VrikaLandingPage() {
           </div>
         </section>
 
+        <section id="how-it-works" className="relative scroll-mt-28 border-b border-outline-variant bg-surface-container-low py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <SectionHeading
+              kicker="How it works"
+              title="Two workflows. One security platform."
+              body="Explore the Cloud Security dashboard and the penetration-testing workspace. Follow the product screens from setup to results, or pause and move through each step at your own pace."
+            />
+            <div className="mt-12">
+              <WorkflowDemo workflows={WORKFLOWS} />
+            </div>
+          </div>
+        </section>
+
         {/* Key capabilities */}
         <section id="capabilities" className="relative scroll-mt-28 border-b border-outline-variant bg-background py-24">
           <div className="editorial-layout relative mx-auto max-w-7xl px-6">
@@ -283,7 +298,7 @@ export function VrikaLandingPage() {
           <div className="relative mx-auto max-w-7xl px-6">
             <SectionHeading
               kicker="Tool coverage"
-              title="185+ security tools, orchestrated"
+              title="120+ security tools, orchestrated"
               body="VRIKA's orchestration engine manages an arsenal spanning ten offensive tooling categories — selected and chained automatically based on live results."
             />
             <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
@@ -495,7 +510,7 @@ export function VrikaLandingPage() {
             </Reveal>
             <Reveal delay={180}>
               <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-on-surface-variant">
-                See how VRIKA turns AI, automation, and 185+ security tools into continuous, validated offensive
+                See how VRIKA turns AI, automation, and 120+ security tools into continuous, validated offensive
                 security.
               </p>
             </Reveal>

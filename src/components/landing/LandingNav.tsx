@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ContactUsModal } from "@/components/landing/ContactUsModal";
-import { LandingHeroPrimaryCta } from "@/components/stitch/LandingAuthCta";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
 import { NAV_GROUPS } from "@/lib/nav-data";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
@@ -112,9 +111,6 @@ export function LandingNav() {
           >
             Book a demo
           </button>
-          <LandingHeroPrimaryCta
-            className="shrink-0 rounded-full border border-outline-variant px-3 py-2.5 text-xs font-bold text-primary transition-colors hover:bg-primary/5 sm:px-5 sm:text-sm"
-          />
           <button
             type="button"
             aria-label="Toggle navigation menu"

@@ -42,7 +42,7 @@ export function ModuleVisual({ module: platformModule }: { module: PlatformModul
                 <div key={item.label}><span className="branch-line" aria-hidden /><item.icon size={22} aria-hidden /><span>{item.label}</span></div>
               ))}
             </div>
-            <div className="art-tool-labels">{["Nmap", "Nuclei", "Subfinder", "185+ tools"].map((tool) => <span key={tool}>{tool}</span>)}</div>
+            <div className="art-tool-labels">{["Nmap", "Nuclei", "Subfinder", "120+ tools"].map((tool) => <span key={tool}>{tool}</span>)}</div>
             <div className="art-approval"><Terminal size={16} aria-hidden /><span>Live results inform the next action</span><ArrowRight size={16} aria-hidden /></div>
           </div>
         )}

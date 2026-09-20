@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "./useReducedMotion";
 
-/** Splits "185+" into 185 and "+" so only the number animates. */
+/** Splits "120+" into 120 and "+" so only the number animates. */
 function parseValue(value: string) {
   const match = value.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
   if (!match) return null;

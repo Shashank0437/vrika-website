@@ -11,7 +11,7 @@ export const HERO = {
   titleAccent: "attackers do.",
   body: "Modern organizations face an ever-growing attack surface across applications, cloud environments, infrastructure, APIs, and digital assets. VRIKA transforms offensive security — combining AI, security automation, and penetration testing into one intelligent platform.",
   stats: [
-    { value: "185+", label: "Integrated security tools" },
+    { value: "120+", label: "Integrated security tools" },
     { value: "4", label: "Integrated platform modules" },
     { value: "10", label: "Offensive tooling categories" },
     { value: "24/7", label: "Continuous validation" },
@@ -89,7 +89,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
         body: "AI agents select, sequence, and chain tools automatically based on live results — mirroring how a skilled human tester adapts.",
       },
       {
-        title: "185+ integrated tools",
+        title: "120+ integrated tools",
         body: "A comprehensive arsenal spanning network, web, OSINT, password, and cloud or API testing — all managed from one interface.",
       },
       {
@@ -217,8 +217,8 @@ export const DIFFERENTIATORS = [
   },
   {
     icon: "widgets",
-    title: "185+ tool orchestration",
-    body: "Integrates over 185 security tools in a single conversational platform. No context-switching required.",
+    title: "120+ tool orchestration",
+    body: "Integrates over 120 security tools in a single conversational platform. No context-switching required.",
   },
 ] as const;
 
@@ -410,6 +410,6 @@ export const FAQ_ITEMS = [
   },
   {
     q: "Does VRIKA replace my existing toolchain?",
-    a: "No — it orchestrates it. VRIKA coordinates 185+ established security tools across ten categories from a single conversational interface, eliminating context-switching while keeping the tooling your team already trusts.",
+    a: "No — it orchestrates it. VRIKA coordinates 120+ established security tools across ten categories from a single conversational interface, eliminating context-switching while keeping the tooling your team already trusts.",
   },
 ] as const;

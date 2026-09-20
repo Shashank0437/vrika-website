@@ -41,7 +41,7 @@ export default function AboutPage() {
           chains, reviewing findings, and generating reports.
         </li>
         <li>
-          <strong>AI Orchestration Engine</strong>—the intelligence layer that plans and chains full attack workflows across 185+
+          <strong>AI Orchestration Engine</strong>—the intelligence layer that plans and chains full attack workflows across 120+
           integrated security tools.
         </li>
         <li>

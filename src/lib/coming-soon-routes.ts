@@ -26,7 +26,7 @@ export const COMING_SOON_PAGES: Record<
     category: "Platform",
     title: "AI Orchestration Engine",
     teaser:
-      "The intelligence layer that plans and executes full attack workflows, chaining 185+ security tools intelligently to uncover genuine, exploitable attack paths.",
+      "The intelligence layer that plans and executes full attack workflows, chaining 120+ security tools intelligently to uncover genuine, exploitable attack paths.",
     highlights: ["AI-driven tool chaining", "Live session dashboard", "Resilient long-running execution"],
   },
   "cloud-security": {

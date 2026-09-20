@@ -40,6 +40,33 @@ access could affect sensitive data, without internal resource types or query
 labels. Its steps use responsive document flow rather than positioned text.
 Visitors can select a step for a plain-language explanation or pause the animation.
 
+The `#how-it-works` section contains a six-step penetration-testing workspace
+walkthrough and a seven-step Cloud Security dashboard walkthrough. Story content
+is in `workflow-data.ts`; `WorkflowScreens.tsx` renders simplified product screens.
+All screen data is illustrative. Product controls inside the illustrations are
+display-only; use the walkthrough's step and playback buttons to navigate.
+No tools, scans, account connections, or downloads are triggered.
+Playback advances every five seconds, stops at the end, and pauses offscreen or
+in a hidden tab. Reduced-motion
+visitors use the step controls without autoplay.
+
+The penetration-testing illustration follows the actual client components in
+`vrika-server/client/src/components/dashboard`: `InitializeOffensiveSequencePage`,
+`AttackChainPlanModal`, `AgentChatExecModeDropdown`, `AttackChainPhaseStrip`, and
+the PDF attachment/preview components. It shows Ask permission mode and a tenant
+administrator explicitly executing a decided tool batch. Previewing a plan,
+approving tools, executing a batch, and generating a report are separate actions.
+
+Cloud Security follows the pages in `vrika-cloud-security/ui/app/(prowler)`,
+the provider wizard, attack-path query builder, and scan-row report actions:
+Providers → Scans → Overview → Findings → Compliance → Attack Paths → scan exports.
+These are dashboard navigation examples, not a mandatory sequential scan pipeline.
+There is **no cloud chat or agent-run scan** in this walkthrough. Findings and
+compliance use completed scan data; Attack Paths additionally needs a graph-ready
+attack-path scan. Remediation is guidance, not automatic changes. MCP endpoints
+are not evidence of an exposed product-UI capability.
+Public tool-coverage copy uses the confirmed **120+ tools**.
+
 ## Appearance
 
 Every public page includes a dark-mode switch. The initial theme is light,
