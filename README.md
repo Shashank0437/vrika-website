@@ -42,11 +42,13 @@ Visitors can select a step for a plain-language explanation or pause the animati
 
 ## Appearance
 
-Every public page includes a dark-mode switch. The initial theme follows the
-visitor's system preference; an explicit choice is saved under `vrika-theme`
+Every public page includes a dark-mode switch. The initial theme is light,
+regardless of the device theme; an explicit choice is saved under `vrika-theme`
 and synchronized across tabs. Semantic color tokens cover page surfaces,
 illustrations, navigation, footer, and the contact form. The theme is applied
 before rendering to avoid flashing the wrong appearance on refresh.
+Dark mode combines navy surfaces, violet feature sections, and restrained teal
+accents; provider logos retain their original brand colors in both themes.
 
 ## Configuration
 

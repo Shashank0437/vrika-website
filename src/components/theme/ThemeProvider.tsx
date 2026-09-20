@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { parseTheme, THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
+import { DEFAULT_THEME, parseTheme, THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
 
 type ThemeContextValue = {
   theme: Theme | null;
@@ -28,18 +28,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    const media = window.matchMedia?.("(prefers-color-scheme: dark)");
-    const systemTheme = (): Theme => media?.matches ? "dark" : "light";
     try {
       preference.current = parseTheme(window.localStorage.getItem(THEME_STORAGE_KEY));
     } catch {
       // A blocked storage API must not prevent using the theme for this tab.
       preference.current = null;
     }
-    applyTheme(preference.current ?? systemTheme());
-    const onSystemChange = () => {
-      if (preference.current === null) applyTheme(systemTheme());
-    };
+    applyTheme(preference.current ?? DEFAULT_THEME);
     const onStorage = (event: StorageEvent) => {
       if (event.key !== THEME_STORAGE_KEY && event.key !== null) return;
       try {
@@ -48,13 +43,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         return;
       }
       preference.current = parseTheme(event.newValue);
-      applyTheme(preference.current ?? systemTheme());
+      applyTheme(preference.current ?? DEFAULT_THEME);
       setStorageUnavailable(false);
     };
-    media?.addEventListener("change", onSystemChange);
     window.addEventListener("storage", onStorage);
     return () => {
-      media?.removeEventListener("change", onSystemChange);
       window.removeEventListener("storage", onStorage);
     };
   }, []);

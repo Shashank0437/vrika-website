@@ -30,6 +30,7 @@ const NO_OUTLINE_SUFFIX = new Set([
   "history",
   "block",
   "verified-user",
+  "insights",
 ]);
 
 /**

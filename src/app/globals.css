@@ -41,33 +41,33 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #15111f;
-  --foreground: #f2ecfa;
-  --muted: #c3b8d1;
+  --background: #101722;
+  --foreground: #eef3fc;
+  --muted: #b9c6da;
   --primary: #c9adff;
   --on-primary: #2b1748;
   --primary-dim: #ddcaff;
-  --primary-container: #392750;
+  --primary-container: #352a52;
   --on-primary-container: #edddff;
-  --surface: #191322;
-  --surface-container: #261e33;
-  --surface-container-low: #1e1729;
-  --surface-container-high: #30263f;
-  --surface-container-lowest: #21192d;
-  --surface-container-highest: #3a2e4b;
-  --surface-variant: #40334f;
-  --outline: #9987ae;
-  --outline-variant: #53425f;
-  --tertiary: #76dfb6;
-  --tertiary-container: #153e32;
-  --on-tertiary-container: #a4f2d1;
+  --surface: #141e2d;
+  --surface-container: #202e43;
+  --surface-container-low: #162131;
+  --surface-container-high: #293952;
+  --surface-container-lowest: #1c2a3d;
+  --surface-container-highest: #34465f;
+  --surface-variant: #354760;
+  --outline: #91a3bd;
+  --outline-variant: #425571;
+  --tertiary: #77e0ca;
+  --tertiary-container: #173e3e;
+  --on-tertiary-container: #b3f3e5;
   --error: #ff9fb4;
   --error-container: #481e30;
   --on-error-container: #ffc6d4;
-  --secondary: #c2b3ce;
-  --scrim: #09050f;
-  --brand-panel-start: #302047;
-  --brand-panel-end: #4a2e70;
+  --secondary: #b5c5dc;
+  --scrim: #060c16;
+  --brand-panel-start: #3d286e;
+  --brand-panel-end: #684cb6;
   --on-brand-panel: #f6eeff;
   --on-brand-panel-muted: #e5d4fa;
   --brand-cta-background: #e5d4fa;
@@ -1085,13 +1085,13 @@ header :is(button, a):focus-visible {
 .editorial-note { max-width: 290px; font-size: 15px; line-height: 1.8; color: var(--color-on-surface-variant); }
 .editorial-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; font-size: 13px; font-weight: 650; color: var(--color-primary); }
 .editorial-seal { margin-top: 30px; display: grid; place-items: center; width: 150px; height: 150px; border-radius: 40px; border: 1px solid var(--launch-line); background: radial-gradient(circle, var(--color-primary-container), transparent 75%); transform: rotate(-8deg); }
-.editorial-seal span { font-size: 88px; color: var(--color-primary); }
+.editorial-seal > svg { width: 88px; height: 88px; color: var(--color-primary); }
 .capability-row { display: flex; gap: 22px; padding: 30px 18px; border-bottom: 1px solid var(--launch-line); border-radius: 12px; }
 .capability-list > :first-child .capability-row { border-top: 1px solid var(--launch-line); }
 .outcome-grid { display: grid; gap: 8px 28px; }
 .outcome-card { padding: 25px 0; border-bottom: 1px solid var(--launch-line); }
 .outcome-illustration { position: relative; display: grid; place-items: center; width: 210px; height: 210px; margin: 20px 0 35px; color: var(--color-primary); }
-.outcome-illustration > .material-symbols-outlined { font-size: 70px; }
+.outcome-illustration > svg { width: 96px; height: 96px; }
 .outcome-ring { position: absolute; inset: 0; border: 1px dashed var(--launch-line); border-radius: 50%; }
 .outcome-ring + .outcome-ring { inset: 25px; border-style: solid; background: radial-gradient(circle, var(--color-primary-container), transparent 72%); }
 .outcome-illustration > :last-child { position: relative; }
@@ -1154,6 +1154,55 @@ header :is(button, a):focus-visible {
 .closing-panel .launch-button:hover { background: var(--on-brand-panel-muted); color: var(--brand-cta-foreground); }
 .closing-panel .vk-divider { background: #ffffff55; box-shadow: none; }
 .closing-panel :is(a, button):focus-visible { outline-color: var(--on-brand-panel); }
+
+/* Dark mode uses distinct navy, violet, and teal bands instead of one purple wash. */
+:root[data-theme="dark"] .launch-hero {
+  background:
+    radial-gradient(ellipse at 12% 0, #684cb63b, transparent 60%),
+    radial-gradient(ellipse at 100% 85%, #247c8730, transparent 50%),
+    linear-gradient(130deg, #101722, #19263c);
+}
+:root[data-theme="dark"] .launch-site #why-vrika {
+  background: linear-gradient(180deg, #162131, #101722);
+}
+:root[data-theme="dark"] .launch-site #platform {
+  background: radial-gradient(ellipse at 0 0, #684cb633, transparent 65%), linear-gradient(130deg, #2b2246, #182a40);
+}
+:root[data-theme="dark"] .security-console,
+:root[data-theme="dark"] .module-art {
+  box-shadow: 0 25px 60px -25px #04091180, inset 0 1px 0 #ffffff08;
+}
+:root[data-theme="dark"] .security-console .console-header,
+:root[data-theme="dark"] .module-art-header {
+  background: color-mix(in srgb, var(--color-surface-container-high) 65%, transparent);
+}
+:root[data-theme="dark"] .console-header { border-radius: 16px 16px 0 0; }
+:root[data-theme="dark"] .launch-site #tool-coverage {
+  background: radial-gradient(ellipse at 10% 0, #287b7b25, transparent 65%), linear-gradient(130deg, #153339, #18263c);
+}
+:root[data-theme="dark"] #tool-coverage :is(.cyber-kicker, .text-primary) { color: var(--color-tertiary); }
+:root[data-theme="dark"] #tool-coverage .cyber-kicker::before { background: var(--color-tertiary); }
+:root[data-theme="dark"] .launch-site #cloud-coverage {
+  background: radial-gradient(ellipse at 100% 0, #25487333, transparent 65%), var(--background);
+}
+:root[data-theme="dark"] .launch-site #compliance {
+  background: linear-gradient(115deg, #193734, #192d41);
+  border-color: color-mix(in srgb, var(--color-tertiary) 25%, var(--background));
+}
+:root[data-theme="dark"] #compliance .cyber-kicker { color: var(--color-tertiary); }
+:root[data-theme="dark"] #compliance .cyber-kicker::before { background: var(--color-tertiary); }
+:root[data-theme="dark"] .launch-site #business-value {
+  background: linear-gradient(150deg, #142031, #101722);
+}
+:root[data-theme="dark"] .outcome-illustration { color: var(--color-tertiary); }
+:root[data-theme="dark"] .outcome-ring { border-color: color-mix(in srgb, var(--color-tertiary) 30%, transparent); }
+:root[data-theme="dark"] .outcome-ring + .outcome-ring { background: radial-gradient(circle, #1e5c5445, transparent 72%); }
+:root[data-theme="dark"] .launch-site #use-cases {
+  background: linear-gradient(135deg, #2b2547, #192d40);
+}
+:root[data-theme="dark"] .launch-site #faq { background: #141e2d; }
+:root[data-theme="dark"] .launch-site footer { background: #121c2b; }
+
 .module-art {
   --art-line: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface-container-lowest));
   min-width: 0;

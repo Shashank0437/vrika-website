@@ -277,32 +277,32 @@ export const TOOL_MARQUEE = [
 
 export const CLOUD_ENVIRONMENTS = [
   {
-    icon: "simple-icons:amazonwebservices",
+    icon: "logos:aws",
     name: "Amazon Web Services",
     body: "Broadest coverage — hundreds of checks across compute, storage, identity, and networking, plus attack-path analysis.",
   },
   {
-    icon: "simple-icons:microsoftazure",
+    icon: "logos:microsoft-azure",
     name: "Microsoft Azure",
     body: "Extensive checks across core Azure services and compliance frameworks.",
   },
   {
-    icon: "simple-icons:googlecloud",
+    icon: "logos:google-cloud",
     name: "Google Cloud",
     body: "Checks spanning identity, storage, compute, and networking services.",
   },
   {
-    icon: "simple-icons:kubernetes",
+    icon: "logos:kubernetes",
     name: "Kubernetes",
     body: "Cluster and workload hardening checks against recognized benchmarks.",
   },
   {
-    icon: "simple-icons:microsoftoffice",
+    icon: "logos:microsoft-icon",
     name: "Microsoft 365",
     body: "Configuration and security posture checks for productivity and identity services.",
   },
   {
-    icon: "simple-icons:github",
+    icon: "logos:github-icon",
     name: "GitHub & Source Control",
     body: "Repository, organization, and supply-chain configuration checks.",
   },

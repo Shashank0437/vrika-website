@@ -329,10 +329,13 @@ export function VrikaLandingPage() {
                 <Reveal key={env.name} delay={i * 90}>
                   <SpotlightCard className="group h-full rounded-xl border border-outline-variant bg-surface-container-lowest p-7 shadow-sm">
                     <div className="flex items-center justify-between">
-                      <Icon
-                        icon={env.icon}
-                        className="size-9 text-on-surface transition-all duration-500 group-hover:scale-110 group-hover:text-primary"
-                      />
+                      <span className="cloud-provider-logo inline-flex size-14 items-center justify-center rounded-xl border border-black/5 bg-white p-2.5">
+                        <Icon
+                          icon={env.icon}
+                          className="size-9 transition-transform duration-500 group-hover:scale-110"
+                          aria-hidden
+                        />
+                      </span>
                       <span className="cyber-index text-outline">/{pad2(i)}</span>
                     </div>
                     <h3 className="mt-6 text-lg font-bold tracking-tight text-on-surface">{env.name}</h3>
