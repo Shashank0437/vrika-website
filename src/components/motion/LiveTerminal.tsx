@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
+import { useReducedMotion } from "./useReducedMotion";
 
 type Line = { tag: string; text: string; tone: string };
 
@@ -19,59 +20,67 @@ const LINES: Line[] = [
 export function LiveTerminal() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [started, setStarted] = useState(false);
-  const [typed, setTyped] = useState("");
-  const [lineCount, setLineCount] = useState(0);
-  const [meter, setMeter] = useState(0);
+  const [typed, setTyped] = useState(PROMPT);
+  const [lineCount, setLineCount] = useState(LINES.length);
+  const [meter, setMeter] = useState(88);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    const reduced =
-      typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || typeof IntersectionObserver === "undefined") {
-      setTyped(PROMPT);
-      setLineCount(LINES.length);
-      setMeter(88);
-      return;
-    }
+    if (!el || reducedMotion || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          setStarted(true);
-          observer.unobserve(entry.target);
+          setStarted(entry.isIntersecting);
         }
       },
       { threshold: 0.3 },
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   useEffect(() => {
-    if (!started) return;
-    const timers: ReturnType<typeof setTimeout>[] = [];
+    if (!started || reducedMotion) return;
+    let timer: ReturnType<typeof setTimeout>;
+    let character = 0;
+    let line = 0;
 
     const runCycle = () => {
+      character = 0;
+      line = 0;
       setTyped("");
       setLineCount(0);
       setMeter(0);
+      timer = setTimeout(typeNext, 34);
+    };
 
-      for (let i = 1; i <= PROMPT.length; i += 1) {
-        timers.push(setTimeout(() => setTyped(PROMPT.slice(0, i)), i * 34));
+    const typeNext = () => {
+      character += 1;
+      setTyped(PROMPT.slice(0, character));
+      timer = setTimeout(character < PROMPT.length ? typeNext : showNextLine, character < PROMPT.length ? 34 : 350);
+    };
+
+    const showNextLine = () => {
+      line += 1;
+      setLineCount(line);
+      if (line < LINES.length) {
+        timer = setTimeout(showNextLine, 520);
+      } else {
+        timer = setTimeout(() => {
+          setMeter(88);
+          timer = setTimeout(runCycle, 5200);
+        }, 720);
       }
-      const afterTyping = PROMPT.length * 34 + 350;
-      LINES.forEach((_, idx) => {
-        timers.push(setTimeout(() => setLineCount(idx + 1), afterTyping + idx * 520));
-      });
-      const afterLines = afterTyping + LINES.length * 520 + 200;
-      timers.push(setTimeout(() => setMeter(88), afterLines));
-      timers.push(setTimeout(runCycle, afterLines + 5200));
     };
 
     runCycle();
-    return () => timers.forEach(clearTimeout);
-  }, [started]);
+    return () => clearTimeout(timer);
+  }, [started, reducedMotion]);
+
+  const displayedPrompt = reducedMotion ? PROMPT : typed;
+  const displayedLines = reducedMotion ? LINES.length : lineCount;
+  const displayedMeter = reducedMotion ? 88 : meter;
 
   return (
     <div ref={ref} className="group relative">
@@ -89,19 +98,27 @@ export function LiveTerminal() {
           </span>
         </div>
 
-        <div className="min-h-[310px] space-y-4 p-6 font-mono text-[13px] leading-relaxed">
+        <p className="px-6 pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-on-surface-variant">
+          Illustrative demo · not a live assessment
+        </p>
+        <div className="sr-only">
+          <p>{PROMPT}</p>
+          <ul>{LINES.map((line) => <li key={line.tag}>{line.tag}: {line.text}</li>)}</ul>
+          <p>Illustrative attack path confidence: 88%.</p>
+        </div>
+        <div aria-hidden="true" className="min-h-[310px] space-y-4 p-6 font-mono text-[13px] leading-relaxed">
           <div className="flex flex-wrap gap-2">
             <span className="text-primary">operator</span>
             <span className="text-on-surface-variant/60">&gt;</span>
             <span className="text-on-surface">
-              {typed}
-              {typed.length < PROMPT.length ? <span className="vk-caret ml-0.5 text-primary" /> : null}
+              {displayedPrompt}
+              {displayedPrompt.length < PROMPT.length ? <span className="vk-caret ml-0.5 text-primary" /> : null}
             </span>
           </div>
 
           <div className="space-y-2 border-l border-primary/25 pl-4">
-            {LINES.slice(0, lineCount).map((line) => (
-              <div key={line.tag} className="agentic-stream-chunk flex gap-2">
+            {LINES.slice(0, displayedLines).map((line) => (
+              <div key={line.tag} className={`${reducedMotion ? "" : "agentic-stream-chunk"} flex gap-2`}>
                 <span className="shrink-0 text-primary/75">[{line.tag}]</span>
                 <span className={line.tone}>{line.text}</span>
               </div>
@@ -117,10 +134,10 @@ export function LiveTerminal() {
               <div className="h-1.5 w-24 overflow-hidden rounded-full bg-outline-variant">
                 <div
                   className="h-full rounded-full bg-gradient-to-r from-primary to-[#8b5cf6] transition-[width] duration-[1600ms] ease-out"
-                  style={{ width: `${meter}%` }}
+                  style={{ width: `${displayedMeter}%`, transition: reducedMotion ? "none" : undefined }}
                 />
               </div>
-              <span className="w-8 text-right text-[11px] font-bold text-on-surface">{meter}%</span>
+              <span className="w-8 text-right text-[11px] font-bold text-on-surface">{displayedMeter}%</span>
             </div>
           </div>
         </div>

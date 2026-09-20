@@ -28,6 +28,7 @@ export function WordReveal({ text, className = "", delay = 0, stagger = 70 }: Pr
             style={{
               ["--vk-delay" as string]: `${wordDelay}ms`,
               opacity: 1,
+              animationFillMode: "both",
               backgroundImage: "inherit",
               backgroundSize: "inherit",
               backgroundPosition: "inherit",

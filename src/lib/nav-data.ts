@@ -84,16 +84,14 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         heading: "Learn",
         links: [
-          { href: "/coming-soon/documentation", label: "Documentation" },
-          { href: "/coming-soon/security-research", label: "Security research" },
-          { href: "/coming-soon/api-surface", label: "API surface" },
-          { href: "/coming-soon/community", label: "Community" },
+          { href: "/docs", label: "Documentation" },
+          { href: "/#platform", label: "Product walkthroughs" },
+          { href: "/#tool-coverage", label: "Tool coverage" },
         ],
       },
       {
         heading: "Support",
         links: [
-          { href: "/coming-soon/support", label: "Support" },
           { href: "/#faq", label: "FAQ" },
           { href: "/responsible-disclosure", label: "Responsible disclosure" },
           { href: "/security-disclosure", label: "Security disclosure" },

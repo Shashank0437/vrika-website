@@ -205,7 +205,7 @@ export function VrikaLandingPage() {
 
             {/* Attack path feature */}
             <Reveal delay={120}>
-              <div className="mt-6 grid items-center gap-10 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low p-8 shadow-sm md:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+              <div className="attack-feature mt-10 grid items-center gap-10 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low p-6 shadow-sm md:p-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)]">
                 <div>
                   <p className="cyber-kicker">Attack path analysis</p>
                   <h3 className="mt-4 text-2xl font-bold tracking-tight text-on-surface md:text-3xl">
@@ -216,21 +216,13 @@ export function VrikaLandingPage() {
                     attacker could pivot from an exposed asset to your crown jewels, so you fix the path, not just the
                     symptom.
                   </p>
-                  <div className="mt-7 flex flex-wrap gap-2.5">
-                    {["Exposed asset", "Pivot", "Privilege escalation", "Crown jewel"].map((label, i) => (
-                      <span
-                        key={label}
-                        className="vk-pop inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-lowest px-3.5 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant"
-                      >
-                        <span className="size-1.5 rounded-full bg-primary" style={{ opacity: 0.35 + i * 0.22 }} />
-                        {label}
-                      </span>
-                    ))}
-                  </div>
+                  <a href="#module-cloud" className="editorial-link">
+                    Explore cloud security <MaterialSymbol name="arrow_forward" />
+                  </a>
                 </div>
                 <div className="relative">
                   <div className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_center,color-mix(in_srgb,var(--color-primary)_10%,transparent),transparent_70%)]" />
-                  <AttackPathGraph className="relative aspect-[4/3] w-full" />
+                  <AttackPathGraph className="relative w-full" />
                 </div>
               </div>
             </Reveal>

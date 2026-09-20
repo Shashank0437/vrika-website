@@ -1,7 +1,13 @@
-import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { BRAND_TAGLINE } from "@/components/landing/landing-data";
-import { FOOTER_PLATFORM_LINKS, FOOTER_RESOURCE_LINKS } from "@/lib/coming-soon-routes";
+import { PLATFORM_MODULES } from "@/components/landing/landing-data";
+
+const FOOTER_PLATFORM_LINKS = PLATFORM_MODULES.map(({ id, title }) => ({ href: `/#${id}`, label: title }));
+const FOOTER_RESOURCE_LINKS = [
+  { href: "/docs", label: "Documentation" },
+  { href: "/#faq", label: "Frequently asked questions" },
+  { href: "/responsible-disclosure", label: "Responsible disclosure" },
+];
 
 const FOOTER_COPYRIGHT = "© 2026 Vrika. All rights reserved.";
 
@@ -25,14 +31,6 @@ const FOOTER_COMPANY_LINKS = [
   { href: "/#faq", label: "FAQ" },
 ] as const;
 
-const FOOTER_SOCIAL_DECOR = [
-  { icon: "simple-icons:x", label: "X" },
-  { icon: "simple-icons:linkedin", label: "LinkedIn" },
-  { icon: "simple-icons:instagram", label: "Instagram" },
-  { icon: "simple-icons:youtube", label: "YouTube" },
-  { icon: "simple-icons:github", label: "GitHub" },
-] as const;
-
 function FooterColumn({ heading, links }: { heading: string; links: readonly { href: string; label: string }[] }) {
   return (
     <div className="space-y-4">
@@ -40,9 +38,9 @@ function FooterColumn({ heading, links }: { heading: string; links: readonly { h
       <ul className="space-y-2.5 text-sm text-on-surface-variant">
         {links.map((link) => (
           <li key={`${heading}-${link.label}`}>
-            <Link href={link.href} className="transition-colors hover:text-primary">
+            <a href={link.href} className="transition-colors hover:text-primary">
               {link.label}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
@@ -54,7 +52,7 @@ export function LandingFooter() {
   return (
     <footer className="border-t border-outline-variant bg-surface-container-lowest px-6 pb-12 pt-16">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-6">
           <div className="lg:col-span-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo_with_text_with_shield.png" alt="Vrika" className="h-20 w-auto object-contain md:h-24" />
@@ -81,13 +79,6 @@ export function LandingFooter() {
                 <Link href={item.href} className="transition-colors hover:text-primary hover:underline">
                   {item.label}
                 </Link>
-              </span>
-            ))}
-          </div>
-          <div className="flex shrink-0 items-center gap-5 text-on-surface-variant">
-            {FOOTER_SOCIAL_DECOR.map(({ icon, label }) => (
-              <span key={label} className="inline-flex opacity-60" aria-label={label} title={label}>
-                <Icon icon={icon} className="size-5" aria-hidden />
               </span>
             ))}
           </div>

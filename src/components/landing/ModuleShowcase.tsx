@@ -1,26 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PlatformModule } from "@/components/landing/landing-data";
-import { DemoVideo } from "@/components/stitch/DemoVideo";
+import { ModuleVisual } from "@/components/landing/ModuleVisual";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
-
-const GOVERNANCE_HIGHLIGHTS = [
-  { icon: "apartment", label: "Multi-tenant isolation" },
-  { icon: "admin_panel_settings", label: "Role-based access" },
-  { icon: "how_to_reg", label: "Approval gates" },
-  { icon: "history", label: "Full audit trails" },
-  { icon: "vpn_key", label: "SSO / SAML" },
-  { icon: "dns", label: "Cloud or on-premise" },
-] as const;
 
 /** Interactive tabbed explorer for the four platform modules. */
 export function ModuleShowcase({ modules }: { modules: PlatformModule[] }) {
   const [active, setActive] = useState(0);
-  const mod = modules[active];
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const root = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const syncHash = () => {
+      const index = modules.findIndex((item) => `#${item.id}` === window.location.hash);
+      if (index >= 0) setActive(index);
+    };
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    window.addEventListener("popstate", syncHash);
+    return () => {
+      window.removeEventListener("hashchange", syncHash);
+      window.removeEventListener("popstate", syncHash);
+    };
+  }, [modules]);
+
+  const select = (index: number, focus = false) => {
+    setActive(index);
+    window.history.replaceState(window.history.state, "", `#${modules[index].id}`);
+    if (focus) tabs.current[index]?.focus();
+  };
 
   return (
-    <div>
+    <div ref={root} className={inView ? "module-in-view" : ""}>
       {/* Tab rail */}
       <div
         role="tablist"
@@ -32,11 +53,21 @@ export function ModuleShowcase({ modules }: { modules: PlatformModule[] }) {
           return (
             <button
               key={m.id}
+              id={m.id}
+              ref={(el) => { tabs.current[i] = el; }}
               role="tab"
               type="button"
               aria-selected={selected}
-              onClick={() => setActive(i)}
-              className={`vk-sweep group relative flex flex-col items-start gap-3 p-6 text-left transition-colors ${
+              aria-controls={`${m.id}-panel`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => select(i)}
+              onKeyDown={(event) => {
+                const next = event.key === "ArrowRight" ? (i + 1) % modules.length
+                  : event.key === "ArrowLeft" ? (i + modules.length - 1) % modules.length
+                  : event.key === "Home" ? 0 : event.key === "End" ? modules.length - 1 : null;
+                if (next !== null) { event.preventDefault(); select(next, true); }
+              }}
+              className={`vk-sweep group relative flex scroll-mt-32 flex-col items-start gap-3 p-6 text-left transition-colors ${
                 selected ? "bg-surface-container" : "bg-surface-container-lowest hover:bg-surface-container/60"
               }`}
             >
@@ -68,7 +99,8 @@ export function ModuleShowcase({ modules }: { modules: PlatformModule[] }) {
       </div>
 
       {/* Active panel */}
-      <div key={mod.id} role="tabpanel" className="agentic-stream-chunk mt-12">
+      {modules.map((mod, index) => (
+      <div key={mod.id} id={`${mod.id}-panel`} role="tabpanel" aria-labelledby={mod.id} tabIndex={0} hidden={active !== index} className="agentic-stream-chunk mt-12">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <div className="flex items-center gap-3">
@@ -83,31 +115,7 @@ export function ModuleShowcase({ modules }: { modules: PlatformModule[] }) {
             <p className="mt-5 text-lg leading-relaxed text-on-surface-variant">{mod.body}</p>
           </div>
 
-          <div>
-            {mod.videoSrc ? (
-              <div className="group relative">
-                <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-primary/20 to-transparent opacity-0 blur-2xl transition duration-700 group-hover:opacity-100" />
-                <div className="cyber-brackets cyber-brackets-static relative overflow-hidden rounded-xl border border-outline-variant">
-                  <DemoVideo src={mod.videoSrc} />
-                </div>
-              </div>
-            ) : (
-              <div className="cyber-grid relative overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest p-7">
-                <div className="relative grid gap-3 sm:grid-cols-2">
-                  {GOVERNANCE_HIGHLIGHTS.map((item, i) => (
-                    <div
-                      key={item.label}
-                      className="vk-pop flex items-center gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3.5 transition-colors hover:border-primary/40"
-                      style={{ ["--vk-delay" as string]: `${i * 60}ms` }}
-                    >
-                      <MaterialSymbol name={item.icon} className="text-xl text-primary" />
-                      <span className="text-sm font-semibold text-on-surface">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+          <ModuleVisual module={mod} />
         </div>
 
         <div className="cyber-rule mt-16" />
@@ -132,6 +140,7 @@ export function ModuleShowcase({ modules }: { modules: PlatformModule[] }) {
           ))}
         </div>
       </div>
+      ))}
     </div>
   );
 }

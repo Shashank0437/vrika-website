@@ -79,7 +79,7 @@ export function SecurityShowcase() {
           <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} tabIndex={0}>
             <div className="console-map" aria-hidden>
               <div className="map-grid" />
-              <svg viewBox="0 0 480 180" className="map-paths" fill="none">
+              <svg viewBox="0 0 480 180" preserveAspectRatio="none" className="map-paths" fill="none">
                 <path d="M75 42 C145 42 145 90 240 90 M75 138 C145 138 145 90 240 90 M240 90 C330 90 330 42 405 42 M240 90 C330 90 330 138 405 138" />
                 <path className="map-signal" d="M75 42 C145 42 145 90 240 90 M240 90 C330 90 330 138 405 138" />
               </svg>

@@ -71,7 +71,7 @@ export function LandingNav() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Main navigation" className="hidden items-center gap-1 lg:flex">
           {NAV_GROUPS.map((group) => {
             const active = openGroup === group.id;
             return (
@@ -100,12 +100,12 @@ export function LandingNav() {
           <button
             type="button"
             onClick={() => setContactOpen(true)}
-            className="hidden shrink-0 rounded-full px-4 py-2 text-sm font-semibold text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary sm:inline-flex"
+            className="hidden shrink-0 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-dim sm:inline-flex"
           >
-            Contact us
+            Book a demo
           </button>
           <LandingHeroPrimaryCta
-            className="shrink-0 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-on-primary shadow-lg shadow-primary/25 transition-colors hover:opacity-90"
+            className="shrink-0 rounded-full border border-outline-variant px-5 py-2.5 text-sm font-bold text-primary transition-colors hover:bg-primary/5"
           />
           <button
             type="button"
@@ -135,7 +135,7 @@ export function LandingNav() {
                   <ul className="mt-4 space-y-1">
                     {col.links.map((link) => (
                       <li key={`${col.heading}-${link.label}`}>
-                        <Link
+                        <a
                           href={link.href}
                           onClick={() => setOpenGroup(null)}
                           className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-surface-container"
@@ -144,14 +144,14 @@ export function LandingNav() {
                           {link.desc ? (
                             <span className="mt-0.5 block text-xs leading-relaxed text-on-surface-variant">{link.desc}</span>
                           ) : null}
-                        </Link>
+                        </a>
                       </li>
                     ))}
                   </ul>
                 </div>
               ))}
               {group.feature ? (
-                <Link
+                <a
                   href={group.feature.href}
                   onClick={() => setOpenGroup(null)}
                   className="flex flex-col justify-between rounded-2xl border border-outline-variant bg-surface-container-low p-6 transition-colors hover:border-primary/45"
@@ -165,7 +165,7 @@ export function LandingNav() {
                     Explore the platform
                     <MaterialSymbol name="arrow_forward" className="text-lg" />
                   </span>
-                </Link>
+                </a>
               ) : null}
             </div>
           </div>
@@ -199,7 +199,7 @@ export function LandingNav() {
                         <ul className="mt-2 space-y-1">
                           {col.links.map((link) => (
                             <li key={`m-${col.heading}-${link.label}`}>
-                              <Link
+                              <a
                                 href={link.href}
                                 onClick={() => {
                                   setMobileOpen(false);
@@ -208,7 +208,7 @@ export function LandingNav() {
                                 className="block py-1.5 text-sm text-on-surface-variant transition-colors hover:text-primary"
                               >
                                 {link.label}
-                              </Link>
+                              </a>
                             </li>
                           ))}
                         </ul>

@@ -27,7 +27,6 @@ export type PlatformModule = {
   headline: string;
   body: string;
   features: { title: string; body: string }[];
-  videoSrc?: string;
 };
 
 export const PLATFORM_MODULES: PlatformModule[] = [
@@ -40,7 +39,6 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       "The conversational web experience where teams launch assessments, run AI-guided attack chains, review findings, and generate reports.",
     headline: "Your AI-driven security command center",
     body: "Describe a target in natural language and VRIKA plans, executes, and documents the assessment — with full visibility and operator control at every step.",
-    videoSrc: "/v1.mp4",
     features: [
       {
         title: "Conversational AI assistant",
@@ -85,7 +83,6 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       "The intelligence layer that plans and executes full attack workflows across the integrated security toolset.",
     headline: "From target to exploit chain in minutes",
     body: "Behind the workspace, VRIKA's orchestration engine connects AI decision-making to real offensive security tooling. It does not just run tools — it chains them intelligently to uncover genuine, exploitable attack paths.",
-    videoSrc: "/v2.mp4",
     features: [
       {
         title: "AI-driven orchestration",
@@ -130,7 +127,6 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       "Continuous multi-cloud posture management with hundreds of checks, compliance frameworks, and risk scoring.",
     headline: "Continuous multi-cloud protection",
     body: "VRIKA's Cloud Security module continuously assesses your cloud environments against hundreds of best-practice and compliance controls — turning misconfigurations into prioritized, actionable findings.",
-    videoSrc: "/v3.mp4",
     features: [
       {
         title: "Multi-cloud coverage",

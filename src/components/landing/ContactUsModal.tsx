@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useEffect, useId, useState } from "react";
+import { type FormEvent, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
 import { ApiError, api } from "@/lib/api";
@@ -17,6 +17,12 @@ const label = "text-[13px] font-medium text-neutral-600";
 
 export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
   const titleId = useId();
+  const errorId = useId();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+  const requestRef = useRef<AbortController | null>(null);
+  const onCloseRef = useRef(onClose);
   const [mounted, setMounted] = useState(false);
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -32,17 +38,64 @@ export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    if (!open) return;
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  useEffect(() => {
+    if (!open || !mounted) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.getPropertyValue("overflow");
+    const previousPriority = document.body.style.getPropertyPriority("overflow");
+    const focusable = () => Array.from(dialog.querySelectorAll<HTMLElement>(
+      'a[href], button, input, select, textarea, [tabindex]',
+    )).filter((element) => element.tabIndex >= 0 && !element.matches(":disabled") && element.getClientRects().length > 0);
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onCloseRef.current();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const elements = focusable();
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+      const active = document.activeElement;
+      if (!first) {
+        e.preventDefault();
+        dialog.focus();
+      } else if (e.shiftKey && (active === first || active === dialog || !dialog.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || active === dialog || !dialog.contains(active))) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    const onFocus = (e: FocusEvent) => {
+      if (e.target instanceof Node && !dialog.contains(e.target)) {
+        (focusable()[0] ?? dialog).focus();
+      }
     };
     window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
+    document.addEventListener("focusin", onFocus);
+    document.body.style.setProperty("overflow", "hidden");
+    (firstNameRef.current ?? dialog).focus({ preventScroll: true });
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.removeEventListener("focusin", onFocus);
+      document.body.style.setProperty("overflow", previousOverflow, previousPriority);
+      requestRef.current?.abort();
+      requestRef.current = null;
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
-  }, [open, onClose]);
+  }, [open, mounted]);
+
+  useEffect(() => {
+    if (sent) successRef.current?.focus({ preventScroll: true });
+  }, [sent]);
 
   useEffect(() => {
     if (!open) {
@@ -63,11 +116,15 @@ export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (requestRef.current || submitting) return;
+    const controller = new AbortController();
+    requestRef.current = controller;
     setFormError(null);
     setSubmitting(true);
     try {
       const res = await api<{ detail?: string; confirmation_sent?: boolean }>("/contact", {
         method: "POST",
+        signal: controller.signal,
         json: {
           first_name: firstName.trim(),
           last_name: lastName.trim(),
@@ -77,12 +134,19 @@ export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
           message: message.trim(),
         },
       });
+      if (controller.signal.aborted || requestRef.current !== controller) return;
+      if (!res || typeof res.confirmation_sent !== "boolean") throw new Error("Unconfirmed contact response");
       setConfirmationSkipped(res.confirmation_sent === false);
       setSent(true);
     } catch (err) {
-      setFormError(err instanceof ApiError ? err.message : "Something went wrong. Please try again.");
+      if (!controller.signal.aborted && requestRef.current === controller) {
+        setFormError(err instanceof ApiError ? err.message : "Something went wrong. Please try again.");
+      }
     } finally {
-      setSubmitting(false);
+      if (requestRef.current === controller) {
+        requestRef.current = null;
+        setSubmitting(false);
+      }
     }
   };
 
@@ -91,11 +155,15 @@ export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
       <button
         type="button"
         aria-label="Close dialog"
+        tabIndex={-1}
+        aria-hidden="true"
         className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
         onClick={onClose}
       />
       {/* `overflow-hidden` + single neutral shadow keeps corners crisp (no colored glow past the radius). */}
       <div
+        ref={dialogRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -122,7 +190,7 @@ export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
 
         <div className="min-h-0 flex-1 overflow-y-auto px-6 py-6 sm:px-8 sm:py-7">
           {sent ? (
-            <div className="rounded-xl border border-neutral-200 bg-neutral-50/80 px-5 py-8 text-center">
+            <div ref={successRef} tabIndex={-1} role="status" className="rounded-xl border border-neutral-200 bg-neutral-50/80 px-5 py-8 text-center">
               <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10">
                 <MaterialSymbol name="check_circle" filled className="text-3xl text-primary" />
               </div>
@@ -146,9 +214,9 @@ export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
               </button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="space-y-4">
+            <form onSubmit={onSubmit} aria-busy={submitting} aria-describedby={formError ? errorId : undefined} className="space-y-4">
               {formError ? (
-                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900">{formError}</div>
+                <div id={errorId} role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900">{formError}</div>
               ) : null}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
@@ -156,6 +224,7 @@ export function ContactUsModal({ open, onClose }: ContactUsModalProps) {
                     First name
                   </label>
                   <input
+                    ref={firstNameRef}
                     id="cu-first"
                     name="firstName"
                     type="text"
