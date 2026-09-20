@@ -2,6 +2,7 @@
 
 import type { ElementType, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "./useReducedMotion";
 
 type RevealProps = {
   children: ReactNode;
@@ -17,15 +18,14 @@ type RevealProps = {
 export function Reveal({ children, delay = 0, variant = "up", className = "", as, id }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const [enhanced, setEnhanced] = useState(false);
+  const reducedMotion = useReducedMotion();
   const Tag = (as ?? "div") as ElementType;
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    if (!el || reducedMotion || typeof IntersectionObserver === "undefined") return;
+    setEnhanced(true);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -38,7 +38,7 @@ export function Reveal({ children, delay = 0, variant = "up", className = "", as
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   const variantClass = variant === "fade" ? "vk-reveal-fade" : variant === "scale" ? "vk-reveal-scale" : "";
 
@@ -46,7 +46,7 @@ export function Reveal({ children, delay = 0, variant = "up", className = "", as
     <Tag
       ref={ref}
       id={id}
-      className={`vk-reveal ${variantClass} ${visible ? "is-visible" : ""} ${className}`.trim()}
+      className={`${enhanced && !reducedMotion ? `vk-reveal ${variantClass} ${visible ? "is-visible" : ""}` : ""} ${className}`.trim()}
       style={{ ["--vk-delay" as string]: `${delay}ms` }}
     >
       {children}

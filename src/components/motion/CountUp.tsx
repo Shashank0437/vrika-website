@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "./useReducedMotion";
 
 /** Splits "185+" into 185 and "+" so only the number animates. */
 function parseValue(value: string) {
@@ -10,21 +11,17 @@ function parseValue(value: string) {
 }
 
 export function CountUp({ value, className = "" }: { value: string; className?: string }) {
-  const parsed = parseValue(value);
   const ref = useRef<HTMLSpanElement | null>(null);
-  const [display, setDisplay] = useState(parsed ? 0 : null);
+  const [display, setDisplay] = useState<{ value: string; text: string } | null>(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!parsed) return;
+    const parsed = parseValue(value);
+    if (!parsed || reducedMotion) return;
     const el = ref.current;
     if (!el) return;
 
-    const reduced =
-      typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || typeof IntersectionObserver === "undefined") {
-      setDisplay(parsed.target);
-      return;
-    }
+    if (typeof IntersectionObserver === "undefined") return;
 
     let frame = 0;
     const observer = new IntersectionObserver(
@@ -37,7 +34,10 @@ export function CountUp({ value, className = "" }: { value: string; className?: 
           const tick = (now: number) => {
             const progress = Math.min((now - start) / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
-            setDisplay(Math.round(parsed.target * eased));
+            setDisplay({
+              value,
+              text: progress === 1 ? value : `${parsed.prefix}${Math.round(parsed.target * eased)}${parsed.suffix}`,
+            });
             if (progress < 1) frame = requestAnimationFrame(tick);
           };
           frame = requestAnimationFrame(tick);
@@ -50,16 +50,12 @@ export function CountUp({ value, className = "" }: { value: string; className?: 
       observer.disconnect();
       cancelAnimationFrame(frame);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
-
-  if (!parsed) return <span className={className}>{value}</span>;
+  }, [value, reducedMotion]);
 
   return (
     <span ref={ref} className={className}>
-      {parsed.prefix}
-      {display ?? 0}
-      {parsed.suffix}
+      <span className="sr-only">{value}</span>
+      <span aria-hidden="true">{!reducedMotion && display?.value === value ? display.text : value}</span>
     </span>
   );
 }

@@ -18,15 +18,14 @@ import { LandingFaq } from "@/components/landing/LandingFaq";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingNav } from "@/components/landing/LandingNav";
 import { ModuleShowcase } from "@/components/landing/ModuleShowcase";
+import { DemoCta } from "@/components/landing/DemoCta";
+import { SecurityShowcase } from "@/components/landing/SecurityShowcase";
 import { AttackPathGraph } from "@/components/motion/AttackPathGraph";
 import { CountUp } from "@/components/motion/CountUp";
-import { HeroRadar } from "@/components/motion/HeroRadar";
-import { LiveTerminal } from "@/components/motion/LiveTerminal";
 import { Reveal } from "@/components/motion/Reveal";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SpotlightCard } from "@/components/motion/SpotlightCard";
 import { WordReveal } from "@/components/motion/WordReveal";
-import { LandingHeroPrimaryCta } from "@/components/stitch/LandingAuthCta";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
 
 /** Drifting gradient mesh used behind hero-style sections. */
@@ -80,29 +79,29 @@ const pad2 = (n: number) => String(n + 1).padStart(2, "0");
 
 export function VrikaLandingPage() {
   return (
-    <div className="bg-background font-sans text-on-background antialiased selection:bg-primary selection:text-on-primary">
+    <div className="launch-site bg-background font-sans text-on-background antialiased selection:bg-primary selection:text-on-primary">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <ScrollProgress />
       <LandingNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         {/* Hero */}
-        <section className="vk-noise relative isolate overflow-hidden border-b border-outline-variant bg-surface-container-low pt-32 md:pt-36">
+        <section className="launch-hero relative isolate overflow-hidden">
           <MeshBackdrop />
           <div className="cyber-grid cyber-grid-fade pointer-events-none absolute inset-0 opacity-60" />
-          <HeroRadar className="vk-ring-spin pointer-events-none absolute -right-28 top-4 size-[560px] opacity-[0.18]" />
 
-          <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 px-6 pb-20 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,1fr)]">
+          <div className="hero-layout relative z-10 mx-auto grid max-w-7xl items-center px-6">
             <div className="space-y-7">
               <Reveal>
-                <p className="inline-flex items-center gap-2.5 rounded-full border border-outline-variant bg-surface-container-lowest/80 px-4 py-1.5 shadow-sm backdrop-blur">
+                <p className="hero-eyebrow">
                   <span className="cyber-pulse size-1.5 rounded-full bg-tertiary" />
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
+                  <span>
                     {HERO.eyebrow}
                   </span>
                 </p>
               </Reveal>
 
-              <h1 className="text-[2.75rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-on-surface md:text-[4.25rem]">
+              <h1 className="hero-title">
                 <WordReveal text={HERO.title} delay={120} />
                 <br />
                 <WordReveal
@@ -121,10 +120,10 @@ export function VrikaLandingPage() {
 
               <Reveal delay={510}>
                 <div className="flex flex-wrap gap-3 pt-1">
-                  <LandingHeroPrimaryCta className="group inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3.5 text-[0.9375rem] font-bold text-on-primary shadow-[0_10px_30px_-12px_var(--color-primary)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-14px_var(--color-primary)]" />
+                  <DemoCta />
                   <a
                     href="#platform"
-                    className="group inline-flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-lowest/80 px-8 py-3.5 text-[0.9375rem] font-bold text-on-surface backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/45 hover:text-primary"
+                    className="launch-button launch-button-secondary group"
                   >
                     Explore the platform
                     <MaterialSymbol
@@ -136,39 +135,47 @@ export function VrikaLandingPage() {
               </Reveal>
 
               <Reveal delay={600}>
-                <p className="pt-3 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-on-surface-variant/70">
-                  {BRAND_TAGLINE}
-                </p>
+                <div className="hero-assurances">
+                  <span><MaterialSymbol name="verified_user" />Human-in-the-loop</span>
+                  <span><MaterialSymbol name="dns" />Cloud or on-premise</span>
+                </div>
               </Reveal>
             </div>
 
-            <Reveal delay={300} variant="scale">
-              <LiveTerminal />
+            <Reveal delay={240} variant="scale" className="min-w-0">
+              <SecurityShowcase />
             </Reveal>
           </div>
 
           {/* Stat band */}
           <div className="relative z-10 border-t border-outline-variant bg-surface-container-lowest/70 backdrop-blur-sm">
-            <dl className="mx-auto grid max-w-7xl grid-cols-2 divide-y divide-outline-variant px-6 md:grid-cols-4 md:divide-x md:divide-y-0">
+            <dl className="hero-stats mx-auto grid max-w-7xl grid-cols-2 px-6 md:grid-cols-4">
               {HERO.stats.map((stat, i) => (
                 <Reveal key={stat.label} delay={i * 110} className="group px-6 py-7 text-center">
-                  <div className="cyber-brackets cyber-brackets-static">
                     <dt className="sr-only">{stat.label}</dt>
                     <dd>
                       <CountUp
                         value={stat.value}
                         className="block bg-gradient-to-b from-on-surface to-on-surface-variant bg-clip-text text-[2.25rem] font-black leading-none text-transparent transition-transform duration-300 group-hover:scale-110"
                       />
-                      <span className="mt-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-on-surface-variant">
-                        {pad2(i)} · {stat.label}
+                      <span className="mt-2.5 block text-xs font-medium text-on-surface-variant">
+                        {stat.label}
                       </span>
                     </dd>
-                  </div>
                 </Reveal>
               ))}
             </dl>
           </div>
         </section>
+
+        <div className="platform-ribbon" aria-label="Supported environments">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-9 gap-y-5 px-6">
+            <p>Built for your environment</p>
+            {["AWS", "Microsoft Azure", "Google Cloud", "Kubernetes", "Microsoft 365", "GitHub"].map((name) => (
+              <span key={name}>{name}</span>
+            ))}
+          </div>
+        </div>
 
         {/* Why VRIKA */}
         <section id="why-vrika" className="relative scroll-mt-28 overflow-hidden border-b border-outline-variant bg-background py-24">
@@ -182,12 +189,12 @@ export function VrikaLandingPage() {
             <div className="mt-16 grid gap-5 md:grid-cols-3">
               {DIFFERENTIATORS.map((item, i) => (
                 <Reveal key={item.title} delay={i * 130}>
-                  <SpotlightCard className="cyber-accent-top h-full overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest p-8 shadow-sm">
+                  <SpotlightCard tilt={2} className="differentiator-card h-full rounded-2xl border border-outline-variant bg-surface-container-lowest p-8">
                     <div className="flex items-center justify-between">
                       <div className="inline-flex size-12 items-center justify-center rounded-lg border border-primary/25 bg-primary/[0.07]">
                         <MaterialSymbol name={item.icon} className="text-2xl text-primary" />
                       </div>
-                      <span className="cyber-index text-outline">/{pad2(i)}</span>
+                      <span className="differentiator-number" aria-hidden>{pad2(i)}</span>
                     </div>
                     <h3 className="mt-6 text-xl font-bold tracking-tight text-on-surface">{item.title}</h3>
                     <p className="mt-3 leading-relaxed text-on-surface-variant">{item.body}</p>
@@ -247,15 +254,21 @@ export function VrikaLandingPage() {
         </section>
 
         {/* Key capabilities */}
-        <section className="relative overflow-hidden border-b border-outline-variant bg-background py-24">
-          <div className="relative mx-auto max-w-7xl px-6">
-            <SectionHeading kicker="Core capabilities" title="Built for how offensive security actually works" />
-            <div className="mt-16 grid gap-5 md:grid-cols-2">
+        <section id="capabilities" className="relative scroll-mt-28 border-b border-outline-variant bg-background py-24">
+          <div className="editorial-layout relative mx-auto max-w-7xl px-6">
+            <Reveal className="editorial-heading">
+              <p className="cyber-kicker">Core capabilities</p>
+              <h2>Built for how offensive security actually works</h2>
+              <p className="editorial-note">{BRAND_TAGLINE}</p>
+              <a href="#platform" className="editorial-link">Meet the platform <MaterialSymbol name="arrow_forward" /></a>
+              <div className="editorial-seal" aria-hidden><MaterialSymbol name="fingerprint" /></div>
+            </Reveal>
+            <div className="capability-list">
               {KEY_CAPABILITIES.map((item, i) => (
                 <Reveal key={item.title} delay={i * 110}>
                   <SpotlightCard
-                    tilt={3}
-                    className="group flex h-full items-start gap-5 rounded-xl border border-outline-variant bg-surface-container-lowest p-8 shadow-sm"
+                    tilt={0}
+                    className="capability-row group"
                   >
                     <div className="inline-flex size-12 shrink-0 items-center justify-center rounded-lg border border-primary/25 bg-primary/[0.07] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
                       <MaterialSymbol name={item.icon} className="text-2xl text-primary" />
@@ -373,15 +386,23 @@ export function VrikaLandingPage() {
         </section>
 
         {/* Business value */}
-        <section id="business-value" className="relative scroll-mt-28 overflow-hidden border-b border-outline-variant bg-background py-24">
-          <div className="relative mx-auto max-w-7xl px-6">
-            <SectionHeading kicker="Business value" title="Outcomes security leaders can measure" />
-            <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <section id="business-value" className="relative scroll-mt-28 border-b border-outline-variant bg-background py-24">
+          <div className="editorial-layout relative mx-auto max-w-7xl px-6">
+            <Reveal className="editorial-heading">
+              <p className="cyber-kicker">Business value</p>
+              <h2>Outcomes security leaders can measure</h2>
+              <div className="outcome-illustration" aria-hidden>
+                <span className="outcome-ring" /><span className="outcome-ring" />
+                <MaterialSymbol name="shield" />
+              </div>
+              <DemoCta className="launch-button-secondary">Talk to our team</DemoCta>
+            </Reveal>
+            <div className="outcome-grid">
               {BUSINESS_BENEFITS.map((item, i) => (
                 <Reveal key={item.title} delay={i * 90}>
                   <SpotlightCard
-                    tilt={4}
-                    className="cyber-accent-top h-full overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest p-7 shadow-sm"
+                    tilt={0}
+                    className="outcome-card h-full"
                   >
                     <div className="flex items-center justify-between">
                       <div className="inline-flex size-11 items-center justify-center rounded-lg border border-primary/25 bg-primary/[0.07]">
@@ -391,12 +412,6 @@ export function VrikaLandingPage() {
                     </div>
                     <h3 className="mt-6 text-lg font-bold tracking-tight text-on-surface">{item.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-on-surface-variant">{item.body}</p>
-                    <div className="mt-6 h-0.5 w-full overflow-hidden rounded-full bg-outline-variant/60">
-                      <div
-                        className="vk-bar h-full rounded-full bg-gradient-to-r from-primary to-[#8b5cf6]"
-                        style={{ ["--vk-delay" as string]: `${i * 90 + 200}ms` }}
-                      />
-                    </div>
                   </SpotlightCard>
                 </Reveal>
               ))}
@@ -455,10 +470,14 @@ export function VrikaLandingPage() {
 
         {/* FAQ */}
         <section id="faq" className="relative scroll-mt-28 overflow-hidden border-b border-outline-variant bg-surface-container-low py-24">
-          <div className="relative mx-auto max-w-4xl px-6">
-            <SectionHeading kicker="FAQ" title="Frequently asked questions" />
+          <div className="editorial-layout relative mx-auto max-w-7xl px-6">
+            <Reveal className="editorial-heading">
+              <p className="cyber-kicker">Before you get started</p>
+              <h2>Good questions.<br />Clear answers.</h2>
+              <DemoCta className="launch-button-secondary">Talk to our team</DemoCta>
+            </Reveal>
             <Reveal delay={120}>
-              <div className="mt-12">
+              <div>
                 <LandingFaq items={FAQ_ITEMS} />
               </div>
             </Reveal>
@@ -466,10 +485,10 @@ export function VrikaLandingPage() {
         </section>
 
         {/* Closing CTA */}
-        <section className="vk-noise relative isolate overflow-hidden bg-background py-28">
+        <section className="closing-section relative isolate overflow-hidden bg-background py-24">
           <MeshBackdrop />
           <div className="cyber-grid cyber-grid-fade pointer-events-none absolute inset-0 opacity-60" />
-          <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+          <div className="closing-panel relative z-10 mx-auto max-w-5xl px-6 text-center">
             <Reveal>
               <p className="cyber-kicker justify-center">Get started</p>
             </Reveal>
@@ -489,12 +508,12 @@ export function VrikaLandingPage() {
             </Reveal>
             <Reveal delay={270}>
               <div className="mt-10 flex flex-wrap justify-center gap-3">
-                <LandingHeroPrimaryCta className="inline-flex items-center justify-center rounded-lg bg-primary px-9 py-4 text-[0.9375rem] font-bold text-on-primary shadow-[0_12px_34px_-14px_var(--color-primary)] transition-all hover:-translate-y-0.5 hover:shadow-[0_20px_46px_-16px_var(--color-primary)]" />
+                <DemoCta />
                 <a
-                  href="/contact"
-                  className="group inline-flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-lowest/80 px-9 py-4 text-[0.9375rem] font-bold text-on-surface backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/45 hover:text-primary"
+                  href="#platform"
+                  className="launch-button launch-button-secondary group"
                 >
-                  Talk to our team
+                  Explore the platform
                   <MaterialSymbol
                     name="arrow_forward"
                     className="text-lg transition-transform group-hover:translate-x-1"

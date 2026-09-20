@@ -1,7 +1,8 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useReducedMotion } from "./useReducedMotion";
 
 type Props = {
   children: ReactNode;
@@ -17,16 +18,21 @@ type Props = {
  */
 export function SpotlightCard({ children, className = "", tilt = 5, style }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (reducedMotion && ref.current) ref.current.style.transform = "";
+  }, [reducedMotion]);
 
   const handleMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || reducedMotion) return;
     const rect = el.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     el.style.setProperty("--mx", `${x}px`);
     el.style.setProperty("--my", `${y}px`);
-    if (tilt > 0) {
+    if (tilt > 0 && rect.width > 0 && rect.height > 0) {
       const rx = (0.5 - y / rect.height) * tilt * 2;
       const ry = (x / rect.width - 0.5) * tilt * 2;
       el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
@@ -45,7 +51,7 @@ export function SpotlightCard({ children, className = "", tilt = 5, style }: Pro
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={style}
-      className={`vk-spotlight vk-glow-border ${tilt > 0 ? "vk-tilt" : ""} ${className}`}
+      className={`vk-spotlight vk-glow-border ${tilt > 0 && !reducedMotion ? "vk-tilt" : ""} ${className}`}
     >
       {children}
     </div>
