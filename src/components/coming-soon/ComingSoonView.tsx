@@ -1,9 +1,11 @@
 import Link from "next/link";
 import type { ComingSoonBackNav } from "@/lib/coming-soon-routes";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function ComingSoonView({ backNav }: { backNav: ComingSoonBackNav }) {
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center bg-white px-6 font-sans text-on-surface antialiased">
+    <main className="relative flex min-h-dvh flex-col items-center justify-center bg-background px-6 font-sans text-on-surface antialiased">
+      <div className="absolute right-4 top-4 sm:right-6 sm:top-6"><ThemeToggle /></div>
       <h1 className="text-center text-[clamp(3.25rem,12vw,9rem)] font-black leading-[0.92] tracking-[-0.04em] text-primary">
         Coming soon
       </h1>

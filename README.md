@@ -35,10 +35,18 @@ than video downloads. Decorative motion respects the
 visitor's reduced-motion preference, and both workflow and module tabs support
 arrow keys, Home, and End.
 
-The attack-path preview follows the cloud-security product's resource graph:
-Internet → EC2 instance → IAM role → S3 bucket, with directed relationships and
-a linked finding. All identifiers, permissions, and severity in the preview
-are illustrative. Visitors can inspect each node or pause the traversal.
+The risk-journey illustration explains how an exposed application and excess
+access could affect sensitive data, without internal resource types or query
+labels. Its steps use responsive document flow rather than positioned text.
+Visitors can select a step for a plain-language explanation or pause the animation.
+
+## Appearance
+
+Every public page includes a dark-mode switch. The initial theme follows the
+visitor's system preference; an explicit choice is saved under `vrika-theme`
+and synchronized across tabs. Semantic color tokens cover page surfaces,
+illustrations, navigation, footer, and the contact form. The theme is applied
+before rendering to avoid flashing the wrong appearance on refresh.
 
 ## Configuration
 

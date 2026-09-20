@@ -33,7 +33,7 @@ export function GlobalPendingApiOverlay() {
 
   return (
     <div
-      className="fixed inset-0 z-[9998] flex items-center justify-center bg-[#0f0a1a]/42 backdrop-blur-[2px]"
+      className="fixed inset-0 z-[9998] flex items-center justify-center bg-scrim/60 backdrop-blur-[2px]"
       aria-busy="true"
       aria-live="polite"
     >

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export type TocItem = { href: string; label: string };
 
@@ -24,19 +25,22 @@ export function MarketingSubpage({
     <main className="relative min-h-dvh bg-background font-sans text-on-background antialiased">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_50%_-10%,rgba(104,76,182,0.08),transparent),radial-gradient(ellipse_70%_50%_at_100%_80%,rgba(0,109,75,0.05),transparent)]" />
       <div className="relative mx-auto max-w-6xl px-6 py-10 md:py-14">
-        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-sm text-on-surface-variant">
-          <Link href="/" className="font-medium text-primary transition hover:underline">
-            Home
-          </Link>
-          <span aria-hidden className="text-outline-variant">
-            /
-          </span>
-          <span>{breadcrumbLabel}</span>
-          <span aria-hidden className="text-outline-variant">
-            /
-          </span>
-          <span className="font-medium text-on-surface">{title}</span>
-        </nav>
+        <div className="flex items-start justify-between gap-4">
+          <nav aria-label="Breadcrumb" className="flex min-w-0 flex-wrap items-center gap-1 text-sm text-on-surface-variant">
+            <Link href="/" className="font-medium text-primary transition hover:underline">
+              Home
+            </Link>
+            <span aria-hidden className="text-outline-variant">
+              /
+            </span>
+            <span>{breadcrumbLabel}</span>
+            <span aria-hidden className="text-outline-variant">
+              /
+            </span>
+            <span className="font-medium text-on-surface">{title}</span>
+          </nav>
+          <ThemeToggle />
+        </div>
 
         <div
           className={

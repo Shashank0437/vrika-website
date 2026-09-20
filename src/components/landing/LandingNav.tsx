@@ -6,6 +6,7 @@ import { ContactUsModal } from "@/components/landing/ContactUsModal";
 import { LandingHeroPrimaryCta } from "@/components/stitch/LandingAuthCta";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
 import { NAV_GROUPS } from "@/lib/nav-data";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function LandingNav() {
   const [elevated, setElevated] = useState(false);
@@ -61,13 +62,19 @@ export function LandingNav() {
       }`}
       onMouseLeave={scheduleClose}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3">
-        <Link href="/" className="flex shrink-0 items-center" onClick={() => setOpenGroup(null)}>
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6">
+        <Link href="/" aria-label="Vrika home" className="flex shrink-0 items-center" onClick={() => setOpenGroup(null)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo_with_text_with_shield.png"
-            alt="Vrika"
-            className="h-14 w-auto object-contain md:h-16"
+            alt=""
+            className="theme-logo-light h-9 w-auto max-w-[94px] object-contain sm:h-14 sm:max-w-none md:h-16"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo_with_white_text_shield.png"
+            alt=""
+            className="theme-logo-dark h-9 w-auto max-w-[94px] object-contain sm:h-14 sm:max-w-none md:h-16"
           />
         </Link>
 
@@ -97,6 +104,7 @@ export function LandingNav() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
+          <ThemeToggle />
           <button
             type="button"
             onClick={() => setContactOpen(true)}
@@ -105,7 +113,7 @@ export function LandingNav() {
             Book a demo
           </button>
           <LandingHeroPrimaryCta
-            className="shrink-0 rounded-full border border-outline-variant px-5 py-2.5 text-sm font-bold text-primary transition-colors hover:bg-primary/5"
+            className="shrink-0 rounded-full border border-outline-variant px-3 py-2.5 text-xs font-bold text-primary transition-colors hover:bg-primary/5 sm:px-5 sm:text-sm"
           />
           <button
             type="button"

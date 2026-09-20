@@ -23,7 +23,6 @@ import { SecurityShowcase } from "@/components/landing/SecurityShowcase";
 import { AttackPathGraph } from "@/components/motion/AttackPathGraph";
 import { CountUp } from "@/components/motion/CountUp";
 import { Reveal } from "@/components/motion/Reveal";
-import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SpotlightCard } from "@/components/motion/SpotlightCard";
 import { WordReveal } from "@/components/motion/WordReveal";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
@@ -81,7 +80,6 @@ export function VrikaLandingPage() {
   return (
     <div className="launch-site bg-background font-sans text-on-background antialiased selection:bg-primary selection:text-on-primary">
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <ScrollProgress />
       <LandingNav />
 
       <main id="main-content" tabIndex={-1}>
@@ -207,14 +205,14 @@ export function VrikaLandingPage() {
             <Reveal delay={120}>
               <div className="attack-feature mt-10 grid items-center gap-10 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low p-6 shadow-sm md:p-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)]">
                 <div>
-                  <p className="cyber-kicker">Attack path analysis</p>
+                  <p className="cyber-kicker">See the bigger picture</p>
                   <h3 className="mt-4 text-2xl font-bold tracking-tight text-on-surface md:text-3xl">
-                    We map how weaknesses chain into real breaches
+                    See how a small gap could put your data at risk
                   </h3>
                   <p className="mt-4 leading-relaxed text-on-surface-variant">
-                    VRIKA correlates findings across tools into a graph of exploitable routes — showing exactly how an
-                    attacker could pivot from an exposed asset to your crown jewels, so you fix the path, not just the
-                    symptom.
+                    Security issues rarely exist in isolation. VRIKA connects the dots between your applications,
+                    access permissions, and important information — helping your team understand what matters
+                    and where to act first.
                   </p>
                   <a href="#module-cloud" className="editorial-link">
                     Explore cloud security <MaterialSymbol name="arrow_forward" />
