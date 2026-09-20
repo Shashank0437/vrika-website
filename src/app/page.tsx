@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { StitchLandingPage } from "@/components/stitch/StitchLandingPage";
+import { VrikaLandingPage } from "@/components/landing/VrikaLandingPage";
 
 /**
- * Google Stitch — Vrika marketing landing (project 3983447513859599936).
- * https://stitch.withgoogle.com/preview/3983447513859599936?node-id=8f6abae9a75c49d8969ac7a231fc16f2
+ * Vrika marketing landing. Content sourced from the VRIKA Overview and
+ * VRIKA Product & Feature Guide documents.
  *
- * Signed-in users can still open `/`; the app is reached via Login / Open workspace, not an automatic redirect.
+ * Signed-in users can still open `/`; the app is reached via Login, not an automatic redirect.
  */
 export const metadata: Metadata = {
-  title: "Vrika | Offensive Security",
+  title: "Vrika | AI-Powered Offensive Security & Cloud Protection Platform",
   description:
-    "Orchestrate 147+ security tools with specialized agents. Autonomous offensive security platform.",
+    "VRIKA combines autonomous AI offensive testing, continuous cloud security posture management, and enterprise governance — orchestrating 185+ security tools from one conversational platform.",
 };
 
 export default function LandingPage() {
-  return <StitchLandingPage />;
+  return <VrikaLandingPage />;
 }

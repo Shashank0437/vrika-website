@@ -1,10 +1,10 @@
 /** Footer + static generation for `/coming-soon/[slug]`. */
 
 export type ComingSoonSlug =
-  | "mesh-orchestration"
-  | "tool-integration"
-  | "evidence-fabric"
-  | "policy-gates"
+  | "ai-security-workspace"
+  | "ai-orchestration-engine"
+  | "cloud-security"
+  | "governance-deployment"
   | "documentation"
   | "support"
   | "security-research"
@@ -15,33 +15,33 @@ export const COMING_SOON_PAGES: Record<
   ComingSoonSlug,
   { title: string; teaser: string; highlights: string[]; category: "Platform" | "Resources" }
 > = {
-  "mesh-orchestration": {
+  "ai-security-workspace": {
     category: "Platform",
-    title: "Mesh orchestration",
+    title: "AI Security Workspace",
     teaser:
-      "Coordinate agent clusters, policy gates, and execution lanes from one mesh—planned telemetry sharing, backoff, and human checkpoints built in.",
-    highlights: ["Multi-agent run graphs", "Scope-aware concurrency", "Live health + queue depth"],
+      "The conversational command center where teams launch assessments, run AI-guided attack chains, review findings, and generate executive and technical reports.",
+    highlights: ["Conversational AI assistant", "Attack chain planner with approvals", "Intelligent PDF reporting"],
   },
-  "tool-integration": {
+  "ai-orchestration-engine": {
     category: "Platform",
-    title: "Tool integration",
+    title: "AI Orchestration Engine",
     teaser:
-      "Bring the binaries your team trusts—commercial, open-source, or internal builds—with version pinning, attestations, and execution sandboxes suited to reds.",
-    highlights: ["Hash-locked payloads", "Credential brokering", "Stdout/stderr as first-class signals"],
+      "The intelligence layer that plans and executes full attack workflows, chaining 185+ security tools intelligently to uncover genuine, exploitable attack paths.",
+    highlights: ["AI-driven tool chaining", "Live session dashboard", "Resilient long-running execution"],
   },
-  "evidence-fabric": {
+  "cloud-security": {
     category: "Platform",
-    title: "Evidence fabric",
+    title: "Cloud Security",
     teaser:
-      "Immutable timelines tying transcripts, artefacts, and tickets together so engagements stay defensible across review and tabletops.",
-    highlights: ["Chain-friendly exports", "Replay-friendly bundles", "Tenant-scoped retention"],
+      "Continuous multi-cloud posture management across AWS, Azure, Google Cloud, Kubernetes, Microsoft 365, and GitHub with hundreds of best-practice checks.",
+    highlights: ["ThreatScore risk prioritization", "Attack path analysis", "CIS, NIST, PCI-DSS, SOC 2 mapping"],
   },
-  "policy-gates": {
+  "governance-deployment": {
     category: "Platform",
-    title: "Policy gates",
+    title: "Governance & Deployment",
     teaser:
-      "Enforce approvals, egress rules, credential tiers, and kill switches before payloads leave quarantine zones—built for messy real-world engagements.",
-    highlights: ["Per-step confirmations", "Blast-radius tags", "Audit-grade decision logs"],
+      "Multi-tenant isolation, role-based access control, approval-based execution, audit trails, SSO/SAML, and flexible cloud or on-premise deployment.",
+    highlights: ["Approval-gated actions", "Complete audit trails", "Cloud or fully on-premise"],
   },
   documentation: {
     category: "Resources",
@@ -83,10 +83,10 @@ export const COMING_SOON_PAGES: Record<
 export const COMING_SOON_SLUGS = Object.keys(COMING_SOON_PAGES) as ComingSoonSlug[];
 
 export const FOOTER_PLATFORM_LINKS = [
-  { href: "/coming-soon/mesh-orchestration" as const, label: "Mesh orchestration" },
-  { href: "/coming-soon/tool-integration" as const, label: "Tool integration" },
-  { href: "/coming-soon/evidence-fabric" as const, label: "Evidence fabric" },
-  { href: "/coming-soon/policy-gates" as const, label: "Policy gates" },
+  { href: "/coming-soon/ai-security-workspace" as const, label: "AI Security Workspace" },
+  { href: "/coming-soon/ai-orchestration-engine" as const, label: "AI Orchestration Engine" },
+  { href: "/coming-soon/cloud-security" as const, label: "Cloud Security" },
+  { href: "/coming-soon/governance-deployment" as const, label: "Governance & Deployment" },
 ] as const;
 
 export const FOOTER_RESOURCE_LINKS = [

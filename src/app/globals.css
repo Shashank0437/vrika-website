@@ -195,3 +195,453 @@ body {
   display: none;
 }
 
+
+/* ── Cyber design system ─────────────────────────────────────────────
+   Visual layer only — reuses existing Vrika theme tokens (primary,
+   surface-*, outline-variant, tertiary). No new brand colors. */
+
+.cyber-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-primary) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-primary) 12%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.cyber-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(196, 181, 253, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(196, 181, 253, 0.09) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.cyber-grid-fade {
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 78%);
+}
+
+.cyber-dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 22%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Mono kicker with leading rule */
+.cyber-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cyber-kicker::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+/* Corner bracket frame */
+.cyber-brackets {
+  position: relative;
+}
+.cyber-brackets::before,
+.cyber-brackets::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
+  border-style: solid;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.cyber-brackets::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1.5px 0 0 1.5px;
+  border-top-left-radius: 4px;
+}
+.cyber-brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1.5px 1.5px 0;
+  border-bottom-right-radius: 4px;
+}
+.cyber-brackets:hover::before,
+.cyber-brackets:hover::after,
+.cyber-brackets-static::before,
+.cyber-brackets-static::after {
+  opacity: 1;
+}
+
+/* Card lift + primary glow on hover */
+.cyber-card {
+  position: relative;
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+.cyber-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
+  box-shadow: 0 18px 40px -26px color-mix(in srgb, var(--color-primary) 70%, transparent);
+}
+
+.cyber-card-dark {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease,
+    background-color 0.28s ease;
+}
+.cyber-card-dark:hover {
+  transform: translateY(-3px);
+  border-color: rgba(196, 181, 253, 0.42);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Top accent rule that sweeps in */
+.cyber-accent-top::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--color-primary), transparent);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cyber-card:hover.cyber-accent-top::before {
+  width: 100%;
+}
+
+/* Monospace index label */
+.cyber-index {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+/* Horizontal scanning beam */
+@keyframes cyber-scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1400%);
+    opacity: 0;
+  }
+}
+.cyber-scanline {
+  position: absolute;
+  inset-inline: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(196, 181, 253, 0.55), transparent);
+  animation: cyber-scan 7s linear infinite;
+}
+
+/* Soft pulsing status dot */
+@keyframes cyber-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-tertiary) 55%, transparent);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 5px transparent;
+  }
+}
+.cyber-pulse {
+  animation: cyber-pulse 2.4s ease-in-out infinite;
+}
+
+/* Gradient hairline divider */
+.cyber-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-primary) 38%, transparent),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cyber-scanline,
+  .cyber-pulse,
+  .landing-hero-orb,
+  .stitch-marquee-content {
+    animation: none;
+  }
+  .cyber-card:hover,
+  .cyber-card-dark:hover {
+    transform: none;
+  }
+}
+
+/* ── Motion layer ────────────────────────────────────────────────────
+   Scroll reveals, staggered entrances, and live visuals. */
+
+@keyframes vk-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vk-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vk-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.vk-reveal {
+  opacity: 0;
+}
+.vk-reveal.is-visible {
+  animation: vk-fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--vk-delay, 0ms);
+}
+.vk-reveal-fade.is-visible {
+  animation-name: vk-fade-in;
+}
+.vk-reveal-scale.is-visible {
+  animation-name: vk-scale-in;
+}
+
+/* Radar sweep */
+@keyframes vk-radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.vk-radar-sweep {
+  transform-origin: center;
+  animation: vk-radar-sweep 4.5s linear infinite;
+}
+
+@keyframes vk-radar-ring {
+  0% {
+    r: 6%;
+    opacity: 0.55;
+  }
+  100% {
+    r: 48%;
+    opacity: 0;
+  }
+}
+.vk-radar-ring {
+  animation: vk-radar-ring 4s ease-out infinite;
+}
+
+/* Target blip */
+@keyframes vk-blip {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+.vk-blip {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vk-blip 3.2s ease-in-out infinite;
+}
+
+/* Orbiting node rings */
+@keyframes vk-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.vk-orbit {
+  transform-origin: center;
+  animation: vk-orbit var(--vk-orbit-dur, 26s) linear infinite;
+}
+.vk-orbit-reverse {
+  animation-direction: reverse;
+}
+
+/* Typing caret */
+@keyframes vk-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.vk-caret {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: vk-caret 1s steps(1) infinite;
+}
+
+/* Meter fill on reveal */
+@keyframes vk-meter {
+  from {
+    width: 0;
+  }
+}
+.vk-meter.is-visible {
+  animation: vk-meter 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--vk-delay, 0ms);
+}
+
+/* Sweep of light across a card on hover */
+.vk-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.vk-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.5) 50%, transparent 62%);
+  transform: translateX(-120%);
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.vk-sweep:hover::after {
+  transform: translateX(120%);
+}
+.vk-sweep-dark::after {
+  background: linear-gradient(105deg, transparent 38%, rgba(196, 181, 253, 0.16) 50%, transparent 62%);
+}
+
+/* Animated gradient text */
+@keyframes vk-text-shine {
+  to {
+    background-position: 200% center;
+  }
+}
+.vk-text-shine {
+  background-size: 200% auto;
+  animation: vk-text-shine 6s linear infinite;
+}
+
+/* Tile pop on hover */
+.vk-pop {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.vk-pop:hover {
+  transform: translateY(-4px) scale(1.015);
+}
+
+/* Node connection line draw */
+@keyframes vk-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.vk-draw {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: vk-draw 2.4s ease-out forwards infinite;
+}
+
+/* Floating drift */
+@keyframes vk-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+.vk-float {
+  animation: vk-float var(--vk-float-dur, 7s) ease-in-out infinite;
+  animation-delay: var(--vk-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vk-reveal,
+  .vk-reveal.is-visible,
+  .vk-meter.is-visible {
+    animation: none !important;
+    opacity: 1;
+  }
+  .vk-radar-sweep,
+  .vk-radar-ring,
+  .vk-blip,
+  .vk-orbit,
+  .vk-caret,
+  .vk-text-shine,
+  .vk-draw,
+  .vk-float {
+    animation: none !important;
+  }
+  .vk-pop:hover {
+    transform: none;
+  }
+}
+
+/* Marquee rows */
+@keyframes vk-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: vk-marquee 46s linear infinite;
+}
+
+.marquee-track-reverse {
+  animation: vk-marquee 54s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .marquee-track-reverse {
+    animation: none;
+  }
+}
