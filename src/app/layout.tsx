@@ -46,7 +46,6 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         <ThemeProvider>
           <AuthProvider>{children}</AuthProvider>
-          <GlobalPendingApiOverlay />
           <div className="theme-toggle-fallback"><ThemeToggle placement="floating" /></div>
         </ThemeProvider>
       </body>
