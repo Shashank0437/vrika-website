@@ -20,6 +20,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Vrika",
   description: "Autonomous offensive security operations platform",
+  other: {
+    "strix-verification": "strix-verify-2d615830b1651e5299956b79efdb5f3c",
+  },
   icons: {
     icon: [
       { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
@@ -41,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="strix-verification" content="strix-verify-2d615830b1651e5299956b79efdb5f3c" />
         <script id="vrika-theme-bootstrap" dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
