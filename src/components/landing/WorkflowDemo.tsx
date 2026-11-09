@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Cloud, LockKeyhole, MessageSquare, Pause, Play, RotateCcw, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Cloud, Globe, LockKeyhole, Pause, Play, RotateCcw, ShieldCheck, Smartphone } from "lucide-react";
 import { useReducedMotion } from "@/components/motion/useReducedMotion";
 import type { Workflow } from "./workflow-data";
-import { CloudWorkflowScreen, PentestWorkflowScreen } from "./WorkflowScreens";
+import { CloudWorkflowScreen, MobileWorkflowScreen, PentestWorkflowScreen } from "./WorkflowScreens";
 import styles from "./WorkflowDemo.module.css";
 
 const STEP_DURATION = 5000;
@@ -115,7 +115,7 @@ export function WorkflowDemo({ workflows }: { workflows: readonly Workflow[] }) 
                 if (next !== null) { event.preventDefault(); chooseFlow(next, true); }
               }}
             >
-              {item.id === "cloud" ? <Cloud size={18} aria-hidden /> : <MessageSquare size={18} aria-hidden />}
+              {item.id === "cloud" ? <Cloud size={18} aria-hidden /> : item.id === "mobile" ? <Smartphone size={18} aria-hidden /> : <Globe size={18} aria-hidden />}
               {item.name}
             </button>
           ))}
@@ -159,6 +159,8 @@ export function WorkflowDemo({ workflows }: { workflows: readonly Workflow[] }) 
         <div className={styles.workspace} key={`${flow.id}-${stepIndex}`}>
           {flow.id === "cloud"
             ? <CloudWorkflowScreen screen={flow.steps[stepIndex].screen} action={step.action} />
+            : flow.id === "mobile"
+            ? <MobileWorkflowScreen screen={flow.steps[stepIndex].screen} action={step.action} />
             : <PentestWorkflowScreen screen={flow.steps[stepIndex].screen} action={step.action} />}
         </div>
         <p className={styles.safeguard}><LockKeyhole size={14} aria-hidden />{flow.safeguard}</p>

@@ -1247,6 +1247,18 @@ header :is(button, a):focus-visible {
 @keyframes art-signal { to { transform: translateY(200%); } }
 .art-tool-labels { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin: 22px 0; }
 .art-tool-labels > span { padding: 5px 9px; font-size: 9px; border: 1px solid var(--art-line); border-radius: 5px; background: var(--color-surface-container-lowest); color: var(--color-on-surface-variant); }
+.mobile-art-platforms { display: flex; flex-wrap: wrap; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--art-line); }
+.mobile-art-platforms > span { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; }
+.mobile-art-app { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 22px 0; }
+.mobile-art-app > svg, .mobile-art-stages svg { flex-shrink: 0; color: var(--color-primary); }
+.mobile-art-app > div { min-width: 0; flex: 1; }
+.mobile-art-app strong, .mobile-art-app small, .mobile-art-stages strong, .mobile-art-stages small { display: block; overflow-wrap: anywhere; letter-spacing: 0; }
+.mobile-art-app strong { font-size: 16px; }
+.mobile-art-app small, .mobile-art-stages small { font-size: 11px; color: var(--color-on-surface-variant); }
+.mobile-art-app > span { font-size: 10px; color: var(--color-primary); }
+.mobile-art-stages { display: grid; gap: 0; padding: 0; margin: 0; list-style: none; }
+.mobile-art-stages li { display: flex; align-items: center; gap: 12px; padding: 16px 0; border-top: 1px solid var(--art-line); }
+.mobile-art-stages strong { font-size: 12px; }
 .cloud-providers { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--art-line); padding-bottom: 20px; }
 .cloud-providers > span { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--color-primary); }
 .cloud-art-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 24px 0 20px; }

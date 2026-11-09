@@ -8,9 +8,9 @@ import { VrikaLandingPage } from "@/components/landing/VrikaLandingPage";
  * Signed-in users can still open `/` without an automatic redirect.
  */
 export const metadata: Metadata = {
-  title: "Vrika | AI-Powered Offensive Security & Cloud Protection Platform",
+  title: "Vrika | Web, Mobile & Cloud Security Platform",
   description:
-    "VRIKA combines autonomous AI offensive testing, continuous cloud security posture management, and enterprise governance — orchestrating 120+ security tools from one conversational platform.",
+    "Assess web applications, Android and iOS apps, and cloud environments with VRIKA. AI-guided testing, mobile analysis, runtime evidence, and enterprise governance.",
 };
 
 export default function LandingPage() {

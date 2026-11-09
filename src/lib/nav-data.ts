@@ -14,7 +14,7 @@ export const NAV_GROUPS: NavGroup[] = [
         links: [
           {
             href: "/#module-workspace",
-            label: "AI Security Workspace",
+            label: "Web Security Workspace",
             desc: "Launch assessments, run AI-guided attack chains, and generate reports.",
           },
           {
@@ -26,6 +26,11 @@ export const NAV_GROUPS: NavGroup[] = [
             href: "/#module-cloud",
             label: "Cloud Security",
             desc: "Continuous multi-cloud posture management and compliance mapping.",
+          },
+          {
+            href: "/#module-mobile",
+            label: "Mobile Security",
+            desc: "Android and iOS analysis, runtime evidence, and assessment reports.",
           },
           {
             href: "/#module-governance",
@@ -49,8 +54,8 @@ export const NAV_GROUPS: NavGroup[] = [
     feature: {
       kicker: "Why VRIKA",
       href: "/#why-vrika",
-      label: "One platform, four integrated modules",
-      desc: "Offensive security automation, cloud protection, and governance in a single AI-driven workspace.",
+      label: "One platform, five integrated modules",
+      desc: "Web, mobile, and cloud security with AI orchestration and enterprise governance.",
     },
   },
   {
@@ -65,6 +70,7 @@ export const NAV_GROUPS: NavGroup[] = [
           { href: "/#use-cases", label: "Cloud security posture management" },
           { href: "/#use-cases", label: "Red team automation" },
           { href: "/#use-cases", label: "Application & API security testing" },
+          { href: "/#module-mobile", label: "Mobile application security testing" },
         ],
       },
       {
@@ -85,7 +91,6 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         heading: "Learn",
         links: [
-          { href: "/docs", label: "Documentation" },
           { href: "/#how-it-works", label: "Product walkthroughs" },
           { href: "/#tool-coverage", label: "Tool coverage" },
         ],

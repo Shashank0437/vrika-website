@@ -5,7 +5,6 @@ import styles from "./LandingFooter.module.css";
 
 const EXPLORE_LINKS = [
   { href: "/about", label: "About VRIKA" },
-  { href: "/docs", label: "Documentation" },
   { href: "/#business-value", label: "Why VRIKA" },
   { href: "/#faq", label: "Common questions" },
 ] as const;

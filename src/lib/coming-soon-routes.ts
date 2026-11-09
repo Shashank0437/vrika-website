@@ -17,7 +17,7 @@ export const COMING_SOON_PAGES: Record<
 > = {
   "ai-security-workspace": {
     category: "Platform",
-    title: "AI Security Workspace",
+    title: "Web Security Workspace",
     teaser:
       "The conversational command center where teams launch assessments, run AI-guided attack chains, review findings, and generate executive and technical reports.",
     highlights: ["Conversational AI assistant", "Attack chain planner with approvals", "Intelligent PDF reporting"],
@@ -83,7 +83,7 @@ export const COMING_SOON_PAGES: Record<
 export const COMING_SOON_SLUGS = Object.keys(COMING_SOON_PAGES) as ComingSoonSlug[];
 
 export const FOOTER_PLATFORM_LINKS = [
-  { href: "/coming-soon/ai-security-workspace" as const, label: "AI Security Workspace" },
+  { href: "/coming-soon/ai-security-workspace" as const, label: "Web Security Workspace" },
   { href: "/coming-soon/ai-orchestration-engine" as const, label: "AI Orchestration Engine" },
   { href: "/coming-soon/cloud-security" as const, label: "Cloud Security" },
   { href: "/coming-soon/governance-deployment" as const, label: "Governance & Deployment" },

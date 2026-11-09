@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Icon } from "@iconify/react";
 import { ArrowRight, Bot, ChartNoAxesCombined, Check, ChevronDown, Cloud, Download, FileText, Globe, Layers, ListChecks, LockKeyhole, MessageSquare, MousePointer2, Network, Play, Plus, ScanLine, Search, Send, ShieldCheck, Terminal, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import type { CloudScreen, PentestScreen } from "./workflow-data";
+import type { CloudScreen, MobileScreen, PentestScreen } from "./workflow-data";
 import styles from "./WorkflowScreens.module.css";
 
 const CLOUD_NAV = [
@@ -23,7 +23,7 @@ const PENTEST_NAV = [
 
 function ProductFrame({ product, screen, active, navigation, action, children }: {
   product: string;
-  screen: CloudScreen | PentestScreen;
+  screen: CloudScreen | PentestScreen | MobileScreen;
   active: string;
   navigation: readonly { label: string; icon: LucideIcon }[];
   action: string;
@@ -169,6 +169,76 @@ function Composer() {
   return <div className={styles.composer}><span>Describe your authorized assessment...</span><Send size={14} aria-hidden /></div>;
 }
 
+const MOBILE_NAV = [
+  { label: "Overview", icon: ChartNoAxesCombined },
+  { label: "Static Analysis", icon: ScanLine },
+  { label: "Dynamic Analysis", icon: Play },
+  { label: "Compare", icon: Layers },
+];
+
+export function MobileWorkflowScreen({ screen, action }: { screen: MobileScreen; action: string }) {
+  const dynamic = ["mobile-dynamic", "mobile-evidence", "mobile-report"].includes(screen);
+  return (
+    <ProductFrame product="Mobile Security" screen={screen} active={dynamic ? "Dynamic Analysis" : "Static Analysis"} navigation={MOBILE_NAV} action={action}>
+      <div className={styles.screenHeading}>
+        <div><h4>{screen === "mobile-upload" ? "New scan" : "Example Mobile"}</h4><p className={styles.muted}>com.example.mobile / Android / Version 2.4.0</p></div>
+        <Badge>{dynamic ? "Runtime assessment" : "Static assessment"}</Badge>
+      </div>
+      {screen === "mobile-upload" && (
+        <>
+          <div className={styles.providerChoices}>
+            <span><Icon icon="logos:android-icon" width={20} height={20} aria-hidden />Android / APK</span>
+            <span><Icon icon="simple-icons:apple" width={20} height={20} aria-hidden />iOS / IPA</span>
+          </div>
+          <div className={styles.fieldGrid}><Field label="Application package">example-mobile.apk</Field><Field label="Platform">Android</Field></div>
+          <div className={styles.formFooter}><Badge tone="success"><Check size={12} aria-hidden />Package selected</Badge><MockAction highlight><ScanLine size={12} aria-hidden />Upload &amp; scan</MockAction></div>
+          <div className={styles.checkList}><div><ShieldCheck size={14} aria-hidden /><span>Application identity, permissions, code, and configuration</span></div><div><FileText size={14} aria-hidden /><span>Findings and evidence tied to this application version</span></div></div>
+        </>
+      )}
+      {screen === "mobile-static" && (
+        <>
+          <div className={styles.formFooter}><Badge tone="success">Completed</Badge><MockAction secondary><Download size={12} aria-hidden />PDF report</MockAction></div>
+          <div className={styles.cards} style={{ marginTop: 18 }}>{[["Security score", "72 / 100"], ["High", "2"], ["Medium", "4"]].map(([label, value]) => <div key={label} className={styles.metric}><span>{label}</span><strong>{value}</strong></div>)}</div>
+          <div className={styles.productTabs}><span data-selected="true">Overview</span><span>Permissions</span><span>Code analysis</span><span>Manifest</span></div>
+          <table className={styles.table}><thead><tr><th>Finding</th><th>Severity</th></tr></thead><tbody><tr><td>Cleartext traffic permitted</td><td><Badge tone="risk">High</Badge></td></tr><tr><td>Exported component needs review</td><td><Badge>Medium</Badge></td></tr></tbody></table>
+        </>
+      )}
+      {screen === "mobile-findings" && (
+        <>
+          <div className={styles.productTabs}><span>Overview</span><span data-selected="true">Manifest analysis</span><span>Code analysis</span><span>Permissions</span></div>
+          <h5>Cleartext traffic permitted</h5>
+          <dl className={styles.detailList} style={{ marginTop: 16 }}><div><dt>Severity</dt><dd><Badge tone="risk">High</Badge></dd></div><div><dt>Evidence</dt><dd>AndroidManifest.xml</dd></div><div><dt>Risk</dt><dd>Unencrypted connections may expose application traffic.</dd></div><div><dt>Remediation</dt><dd>Require HTTPS and restrict cleartext access in the network security configuration.</dd></div></dl>
+          <div className={styles.console} style={{ marginTop: 18 }}><span>android:usesCleartextTraffic="true"</span></div>
+        </>
+      )}
+      {screen === "mobile-dynamic" && (
+        <>
+          <div className={styles.filters}><span>Android emulator</span><span>com.example.mobile</span><span>Session active</span></div>
+          <div className={styles.split}>
+            <div className={styles.surface}><h5>Live screen</h5><div className={styles.message}><span>Example Mobile</span><p>Account overview</p><div className={styles.checkList}><div><ShieldCheck size={14} aria-hidden /><span>Signed in to test account</span></div><div><ListChecks size={14} aria-hidden /><span>Recent activity</span></div></div></div><div className={styles.toolActions}><MockAction secondary><ArrowRight size={12} aria-hidden />Back</MockAction><MockAction secondary>Home</MockAction></div></div>
+            <div><h5>Frida instrumentation</h5><div className={styles.toolActions}><MockAction highlight><Play size={12} aria-hidden />Spawn &amp; Inject</MockAction><MockAction secondary>Inject</MockAction><MockAction secondary>Attach</MockAction></div><div className={styles.console} style={{ marginTop: 18 }}><span>Application: com.example.mobile</span><span>Frida session: active</span><span>Runtime evidence available</span></div></div>
+          </div>
+        </>
+      )}
+      {screen === "mobile-evidence" && (
+        <>
+          <div className={styles.productTabs}><span data-selected="true">Web traffic</span><span>Logcat</span><span>API monitor</span><span>Frida logs</span><span>Screenshots</span></div>
+          <table className={styles.table}><thead><tr><th>Method</th><th>Request</th><th>Status</th></tr></thead><tbody><tr><td>GET</td><td>api.example.com/profile</td><td>200</td></tr><tr><td>POST</td><td>api.example.com/session</td><td>200</td></tr></tbody></table>
+          <div className={styles.console} style={{ marginTop: 18 }}><span>Session: example-run-02</span><span>Activity: account overview opened</span><span>Screenshot: account-overview.png</span></div>
+          <div className={styles.formFooter}><Badge>Current session evidence</Badge><MockAction secondary><FileText size={12} aria-hidden />Stop &amp; Generate Report</MockAction></div>
+        </>
+      )}
+      {screen === "mobile-report" && (
+        <>
+          <div className={styles.fieldGrid}><Field label="Dynamic report history">Run 02 / Latest<ChevronDown size={12} aria-hidden /></Field><Field label="Application">Example Mobile / 2.4.0</Field></div>
+          <table className={styles.table} style={{ marginTop: 18 }}><thead><tr><th>Saved run</th><th>Evidence</th></tr></thead><tbody><tr data-selected="true"><td>Run 02</td><td>Runtime report and session screenshots</td></tr><tr><td>Run 01</td><td>Earlier runtime report and screenshots</td></tr></tbody></table>
+          <div style={{ marginTop: 18 }}><ReportDocument title="Static analysis report" description="Separate PDF export with the app identity, static findings, and remediation guidance." /></div>
+        </>
+      )}
+    </ProductFrame>
+  );
+}
+
 function PhaseStrip() {
   return <div className={styles.surface}><h5>Attack chain progress</h5><div className={styles.filters} style={{ marginBottom: 0 }}><span><Check size={11} aria-hidden />Reconnaissance</span><span><i className={styles.scanDot} />Enumeration</span><span>Vulnerability scan</span></div></div>;
 }
@@ -214,8 +284,8 @@ export function PentestWorkflowScreen({ screen, action }: { screen: PentestScree
       {screen === "pentest-report" && (
         <>
           <div className={styles.split}>
-            <div className={styles.surface}><h5>Report attachment</h5><Badge>PDF</Badge><p style={{ marginTop: 10 }}>Penetration Testing Report / app.example.com</p><div className={styles.toolActions}><MockAction secondary><Download size={12} aria-hidden />Download</MockAction></div><p className={styles.muted} style={{ marginTop: 13 }}>Open the attachment to preview the PDF.</p></div>
-            <ReportDocument title="Penetration Testing Report" description="app.example.com / PDF preview. Inspect the report, download it, or open it in a new tab." />
+            <div className={styles.surface}><h5>Report attachment</h5><Badge>PDF</Badge><p style={{ marginTop: 10 }}>Web Security Report / app.example.com</p><div className={styles.toolActions}><MockAction secondary><Download size={12} aria-hidden />Download</MockAction></div><p className={styles.muted} style={{ marginTop: 13 }}>Open the attachment to preview the PDF.</p></div>
+            <ReportDocument title="Web Security Report" description="app.example.com / PDF preview. Inspect the report, download it, or open it in a new tab." />
           </div>
           <div className={`${styles.surface} ${styles.stagger}`} style={{ marginTop: 16 }}><h5>Session Intelligence</h5><div className={styles.filters} style={{ marginBottom: 0 }}>{["Overview", "Tools Used", "Targets", "Findings Summary", "Evidence", "Timeline"].map(label => <span key={label}>{label}</span>)}</div><p className={styles.muted} style={{ marginTop: 10 }}>Available separately for reviewing session findings and history.</p></div>
         </>

@@ -35,13 +35,19 @@ than video downloads. Decorative motion respects the
 visitor's reduced-motion preference, and both workflow and module tabs support
 arrow keys, Home, and End.
 
+The five platform modules are Web Security Workspace, AI Orchestration Engine,
+Cloud Security, Mobile Security, and Governance & Deployment. Mobile Security is
+linked from the Platform and Solutions menus and the shared footer. Its showcase
+supports the direct link `/#module-mobile`, and its capabilities, use cases, FAQ,
+About entry, and page metadata describe the same static and runtime assessment scope.
+
 The risk-journey illustration explains how an exposed application and excess
 access could affect sensitive data, without internal resource types or query
 labels. Its steps use responsive document flow rather than positioned text.
 Visitors can select a step for a plain-language explanation or pause the animation.
 
-The `#how-it-works` section contains a six-step penetration-testing workspace
-walkthrough and a seven-step Cloud Security dashboard walkthrough. Story content
+The `#how-it-works` section contains six-step Web Security and Mobile Security
+walkthroughs and a seven-step Cloud Security dashboard walkthrough. Story content
 is in `workflow-data.ts`; `WorkflowScreens.tsx` renders simplified product screens.
 All screen data is illustrative. Product controls inside the illustrations are
 display-only; use the walkthrough's step and playback buttons to navigate.
@@ -50,12 +56,20 @@ Playback advances every five seconds, stops at the end, and pauses offscreen or
 in a hidden tab. Reduced-motion
 visitors use the step controls without autoplay.
 
-The penetration-testing illustration follows the actual client components in
+The Web Security illustration follows the actual client components in
 `vrika-server/client/src/components/dashboard`: `InitializeOffensiveSequencePage`,
 `AttackChainPlanModal`, `AgentChatExecModeDropdown`, `AttackChainPhaseStrip`, and
 the PDF attachment/preview components. It shows Ask permission mode and a tenant
 administrator explicitly executing a decided tool batch. Previewing a plan,
 approving tools, executing a batch, and generating a report are separate actions.
+
+Mobile Security covers package upload, static analysis, finding evidence, Android
+dynamic analysis, runtime evidence, and saved dynamic report history. Its runtime
+example requires a configured Android device or emulator in the actual product;
+iOS dynamic analysis needs a supported, configured environment. Static PDF exports
+are separate from saved dynamic runs. Spawn & Inject restarts the app under Frida,
+while Inject requires an existing active session. The walkthrough does not connect
+to a device or run an analysis.
 
 Cloud Security follows the pages in `vrika-cloud-security/ui/app/(prowler)`,
 the provider wizard, attack-path query builder, and scan-row report actions:

@@ -44,7 +44,7 @@
 @media (max-width: 767px) {
   .topbar { padding: 16px; gap: 12px; }
   .tabs { width: 100%; }
-  .tabs button { flex: 1; padding: 11px 7px; font-size: 11px; gap: 6px; }
+  .tabs button { flex: 1; min-width: 0; flex-direction: column; padding: 11px 7px; font-size: 11px; gap: 6px; overflow-wrap: anywhere; }
   .tabs svg { width: 16px; flex-shrink: 0; }
   .exampleBadge { width: 100%; text-align: center; font-size: 10px; }
   .context { padding: 16px 16px 0; font-size: 11px; }

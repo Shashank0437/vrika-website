@@ -9,10 +9,10 @@ export const HERO = {
   eyebrow: "AI-Powered Offensive Security Orchestration Platform",
   title: "Hunt risks before",
   titleAccent: "attackers do.",
-  body: "Modern organizations face an ever-growing attack surface across applications, cloud environments, infrastructure, APIs, and digital assets. VRIKA transforms offensive security — combining AI, security automation, and penetration testing into one intelligent platform.",
+  body: "Assess web applications, mobile apps, APIs, and cloud environments in one platform. VRIKA combines AI-guided web testing, mobile static and dynamic analysis, and cloud posture management with operator control and actionable reporting.",
   stats: [
     { value: "120+", label: "Integrated security tools" },
-    { value: "4", label: "Integrated platform modules" },
+    { value: "5", label: "Integrated platform modules" },
     { value: "10", label: "Offensive tooling categories" },
     { value: "24/7", label: "Continuous validation" },
   ],
@@ -34,7 +34,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     id: "module-workspace",
     index: "Module 01",
     icon: "forum",
-    title: "AI Security Workspace",
+    title: "Web Security Workspace",
     summary:
       "The conversational web experience where teams launch assessments, run AI-guided attack chains, review findings, and generate reports.",
     headline: "Your AI-driven security command center",
@@ -159,8 +159,27 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     ],
   },
   {
-    id: "module-governance",
+    id: "module-mobile",
     index: "Module 04",
+    icon: "smartphone",
+    title: "Mobile Security",
+    summary: "Static and dynamic application analysis with findings, runtime evidence, and reports for authorized mobile assessments.",
+    headline: "Understand your app, from package to runtime",
+    body: "Review Android and iOS application packages, investigate security findings, and observe runtime behavior in a configured test environment. Keep application identity, evidence, and reports together in the VRIKA workspace.",
+    features: [
+      { title: "Android & iOS static analysis", body: "Upload an APK or IPA to inspect application metadata, permissions, code, and platform-specific configuration findings." },
+      { title: "Evidence-led findings", body: "Review severity, available source evidence, and remediation guidance for the application version under assessment." },
+      { title: "Dynamic analysis", body: "Investigate Android apps on a configured emulator or device. iOS runtime testing requires a supported, configured environment." },
+      { title: "Live Android interaction", body: "Use the live screen, navigation controls, and screenshots to exercise an app during an Android analysis session." },
+      { title: "Frida instrumentation", body: "Spawn or attach to an Android app and inspect runtime behavior with selected hooks or custom scripts. Templates need app-specific configuration." },
+      { title: "Runtime evidence", body: "Review captured web traffic, logcat, API monitor output, Frida logs, and session screenshots where available." },
+      { title: "Compare scan results", body: "Compare static scan results to investigate differences between assessed application versions." },
+      { title: "Reports & run history", body: "Export a static analysis PDF and revisit saved dynamic reports with their session evidence and screenshots." },
+    ],
+  },
+  {
+    id: "module-governance",
+    index: "Module 05",
     icon: "verified_user",
     title: "Governance & Deployment",
     summary:
@@ -223,6 +242,11 @@ export const DIFFERENTIATORS = [
 ] as const;
 
 export const KEY_CAPABILITIES = [
+  {
+    icon: "smartphone",
+    title: "Mobile application security",
+    body: "Android and iOS static analysis, configured runtime testing, and evidence-backed reports.",
+  },
   {
     icon: "chat",
     title: "AI agent-driven testing",
@@ -314,7 +338,7 @@ export const BUSINESS_BENEFITS = [
   {
     icon: "schedule",
     title: "Reduce manual effort",
-    body: "Automate repetitive penetration testing and cloud review tasks — improving efficiency across teams.",
+    body: "Bring web assessments, mobile analysis, and cloud reviews into repeatable workflows with findings and reports in one place.",
   },
   {
     icon: "verified",
@@ -324,7 +348,7 @@ export const BUSINESS_BENEFITS = [
   {
     icon: "travel_explore",
     title: "Improve security coverage",
-    body: "Continuously assess applications, infrastructure, cloud environments, and external attack surface.",
+    body: "Assess web and mobile applications, infrastructure, cloud environments, and external attack surface.",
   },
   {
     icon: "build",
@@ -344,6 +368,7 @@ export const BUSINESS_BENEFITS = [
 ] as const;
 
 export const USE_CASES = [
+  { icon: "smartphone", title: "Mobile Application Security Testing" },
   { icon: "autorenew", title: "Continuous Penetration Testing" },
   { icon: "radar", title: "Attack Surface Management" },
   { icon: "cloud_done", title: "Cloud Security Posture Management" },
@@ -385,12 +410,20 @@ export const CUSTOMIZATION_FEATURES = [
 
 export const FAQ_ITEMS = [
   {
+    q: "Can VRIKA assess Android and iOS apps?",
+    a: "Yes. Mobile Security supports APK and IPA uploads for static analysis, including application metadata and platform-specific findings. Android dynamic analysis uses a configured emulator or device; iOS runtime analysis requires a supported, configured environment. Runtime evidence depends on the platform, instrumentation, and session activity.",
+  },
+  {
+    q: "What evidence and reports are available for mobile assessments?",
+    a: "Review static findings and available source evidence, compare scan results, and export a static PDF. During Android dynamic analysis, inspect captured traffic, logcat, API monitor output, Frida logs, and screenshots. Stop and generate a report to save a dynamic run, then revisit it through report history.",
+  },
+  {
     q: "What exactly does VRIKA do?",
-    a: "VRIKA is an AI-powered offensive security orchestration platform. Its AI security agents continuously identify, validate, and prioritize risks by orchestrating real-world attack simulations across your environment — helping teams discover vulnerabilities before attackers do.",
+    a: "VRIKA brings web, mobile, and cloud security into one platform: AI-guided web assessments, mobile static and dynamic analysis, and cloud posture reviews. Teams can investigate findings, collect evidence, and generate reports with role-based access and operator control.",
   },
   {
     q: "Do I need tool or scripting expertise to use it?",
-    a: "No. Describe an objective in plain language and VRIKA interprets intent, selects the right tools, sequences them, and documents the outcome. A point-and-click tools workspace sits alongside the AI assistant for hands-on operators.",
+    a: "You can start web assessments through the AI workspace and mobile static analysis through a package upload. Advanced runtime investigation, device setup, and custom Frida scripts require technical knowledge. Script templates must be adapted to the app being assessed.",
   },
   {
     q: "How does VRIKA keep humans in control?",

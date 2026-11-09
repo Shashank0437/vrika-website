@@ -22,8 +22,8 @@ export default function AboutPage() {
       ]}
     >
       <p className="lead-intro text-on-surface">
-        VRIKA is an AI-powered offensive security and cloud protection platform. It combines autonomous AI offensive testing,
-        continuous cloud security posture management, and enterprise governance in a single conversational experience — so
+        VRIKA brings web, mobile, and cloud security into one platform. It combines AI-guided web testing,
+        mobile application analysis, cloud security posture management, and enterprise governance — so
         security teams can move beyond point-in-time assessments to continuous, intelligence-driven operations.
       </p>
 
@@ -37,7 +37,7 @@ export default function AboutPage() {
       <h2 id="platform">The platform</h2>
       <ul>
         <li>
-          <strong>AI Security Workspace</strong>—the conversational workspace for launching assessments, running AI-guided attack
+          <strong>Web Security Workspace</strong>—the conversational workspace for launching assessments, running AI-guided attack
           chains, reviewing findings, and generating reports.
         </li>
         <li>
@@ -49,6 +49,10 @@ export default function AboutPage() {
           mapping, and risk scoring.
         </li>
         <li>
+          <strong>Mobile Security</strong>—Android and iOS static analysis, runtime investigation in configured test environments,
+          scan comparison, evidence review, and static PDFs alongside saved dynamic reports.
+        </li>
+        <li>
           <strong>Governance &amp; Deployment</strong>—multi-tenancy, RBAC, approvals, audit trails, SSO, and cloud or on-premise
           deployment.
         </li>
@@ -57,7 +61,7 @@ export default function AboutPage() {
       <h2 id="who">Who we serve</h2>
       <ul>
         <li>Internal red teams and security operations groups running continuous validation programs;</li>
-        <li>Product security teams pressure-testing applications, APIs, and multi-tenant SaaS;</li>
+        <li>Product security teams assessing web and mobile applications, APIs, and multi-tenant SaaS;</li>
         <li>Consultancies delivering recurring penetration testing with standardized reporting;</li>
         <li>Regulated and security-conscious organizations with strict data-residency and compliance requirements.</li>
       </ul>

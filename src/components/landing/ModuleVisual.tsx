@@ -1,4 +1,5 @@
-import { ArrowDown, ArrowRight, Bot, Check, Cloud, FileCheck2, Fingerprint, GitBranch, Layers, LockKeyhole, Network, ScanLine, ShieldCheck, Terminal, UserCheck } from "lucide-react";
+import { ArrowDown, ArrowRight, Bot, Check, Cloud, FileCheck2, Fingerprint, GitBranch, Layers, LockKeyhole, Network, ScanLine, ShieldCheck, Smartphone, Terminal, UserCheck } from "lucide-react";
+import { Icon } from "@iconify/react";
 import type { PlatformModule } from "@/components/landing/landing-data";
 
 const GOVERNANCE_HIGHLIGHTS = [
@@ -55,8 +56,23 @@ export function ModuleVisual({ module: platformModule }: { module: PlatformModul
                 <div key={item.title}><item.icon size={17} aria-hidden /><span>{item.title}</span><small>{item.status}</small></div>
               ))}
             </div>
-            <div className="art-frameworks"><span>CIS</span><span>NIST</span><span>ISO 27001</span><span>SOC 2</span></div>
+            <div className="art-frameworks"><span>CIS</span><span>NIST</span><span>ISO 27001</span><span>SOC 2</span><span>DPDP</span></div>
             <div className="art-approval"><FileCheck2 size={16} aria-hidden /><span>Prioritized findings. Actionable guidance.</span></div>
+          </div>
+        )}
+        {platformModule.id === "module-mobile" && (
+          <div className="mobile-art">
+            <div className="mobile-art-platforms">
+              <span><Icon icon="logos:android-icon" width={20} height={20} aria-hidden />Android / APK</span>
+              <span><Icon icon="simple-icons:apple" width={20} height={20} aria-hidden />iOS / IPA</span>
+            </div>
+            <div className="mobile-art-app"><Smartphone size={32} aria-hidden /><div><strong>Example Mobile</strong><small>com.example.mobile / 2.4.0</small></div><span>Sample app</span></div>
+            <ol className="mobile-art-stages">
+              <li><ScanLine size={18} aria-hidden /><div><strong>Static analysis</strong><small>Permissions, code, and configuration findings</small></div></li>
+              <li><Terminal size={18} aria-hidden /><div><strong>Runtime investigation</strong><small>Configured device, instrumentation, and evidence</small></div></li>
+              <li><FileCheck2 size={18} aria-hidden /><div><strong>Reports &amp; history</strong><small>Static PDF and saved dynamic runs</small></div></li>
+            </ol>
+            <div className="art-approval"><ShieldCheck size={16} aria-hidden /><span>Authorized apps. Evidence tied to each assessment.</span></div>
           </div>
         )}
         {platformModule.id === "module-governance" && (

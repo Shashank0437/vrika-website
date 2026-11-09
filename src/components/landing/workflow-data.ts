@@ -1,5 +1,6 @@
 export type PentestScreen = "workspace" | "attack-chain" | "execution-mode" | "approval" | "execution" | "pentest-report";
 export type CloudScreen = "providers" | "scans" | "overview" | "findings" | "compliance" | "attack-paths" | "cloud-report";
+export type MobileScreen = "mobile-upload" | "mobile-static" | "mobile-findings" | "mobile-dynamic" | "mobile-evidence" | "mobile-report";
 
 type WorkflowStep<Screen extends string> = {
   label: string;
@@ -18,13 +19,14 @@ type WorkflowDetails = {
 export type Workflow = WorkflowDetails & (
   | { id: "pentest"; steps: readonly WorkflowStep<PentestScreen>[] }
   | { id: "cloud"; steps: readonly WorkflowStep<CloudScreen>[] }
+  | { id: "mobile"; steps: readonly WorkflowStep<MobileScreen>[] }
 );
 
 export const WORKFLOWS: readonly Workflow[] = [
   {
     id: "pentest",
-    name: "Penetration testing",
-    context: "Inside the Agentic Workspace: configure an assessment, review tool permissions, follow execution, and open the PDF report.",
+    name: "Web security",
+    context: "Inside the Agentic Workspace: assess an authorized web application, review tool permissions, follow execution, and open the PDF report.",
     safeguard: "Illustrated product screens, not a live console. This example uses an authorized target, Ask permission mode, and a tenant administrator for tool execution.",
     steps: [
       {
@@ -68,6 +70,56 @@ export const WORKFLOWS: readonly Workflow[] = [
         summary: "Choose Generate Report in the workspace header. Open the resulting PDF attachment to preview it or download it.",
         screen: "pentest-report",
         action: "Operator action: Generate Report, then Download PDF Report. Run more tools later and use Generate Updated Report.",
+      },
+    ],
+  },
+  {
+    id: "mobile",
+    name: "Mobile security",
+    context: "From application package to evidence: review static findings, investigate runtime behavior on a connected device, and revisit saved reports.",
+    safeguard: "Illustrated screens with sample data. Analyze only authorized apps. This runtime example uses Android; iOS dynamic analysis requires a supported, configured environment. No device or scan is started here.",
+    steps: [
+      {
+        label: "Upload an app",
+        title: "Start with your application package",
+        summary: "Open New scan and upload an Android APK or iOS IPA for static analysis. Keep the application and version tied to the assessment.",
+        screen: "mobile-upload",
+        action: "Open New scan and select an authorized application package.",
+      },
+      {
+        label: "Static analysis",
+        title: "Review the app before running it",
+        summary: "Follow the scan, then inspect the app identity, security score, permissions, and findings grouped by severity.",
+        screen: "mobile-static",
+        action: "Open the completed scan to review its static analysis report.",
+      },
+      {
+        label: "Inspect findings",
+        title: "Connect each finding to its evidence",
+        summary: "Review code and configuration findings, inspect available source evidence, and prioritize remediation for the affected version.",
+        screen: "mobile-findings",
+        action: "Select a report section and inspect the finding's evidence and remediation guidance.",
+      },
+      {
+        label: "Dynamic analysis",
+        title: "Observe the app on a connected device",
+        summary: "Start an Android analysis session on a configured emulator or device. Use the live screen and, when needed, Frida instrumentation to investigate runtime behavior.",
+        screen: "mobile-dynamic",
+        action: "Start the analysis session. Spawn & Inject restarts the app under Frida; Inject requires an existing active Frida session.",
+      },
+      {
+        label: "Runtime evidence",
+        title: "Review what happened during the session",
+        summary: "Inspect web traffic, logcat, API monitor output, Frida logs, and screenshots captured during the analysis. Available evidence depends on session activity and instrumentation.",
+        screen: "mobile-evidence",
+        action: "Exercise the app and review the runtime evidence panels for the current session.",
+      },
+      {
+        label: "Reports",
+        title: "Keep the results of each investigation",
+        summary: "Stop the dynamic session and generate its report. Revisit saved runs and their screenshots, or download the static analysis PDF separately.",
+        screen: "mobile-report",
+        action: "Use Stop & Generate Report to save the dynamic run. Select an earlier run in report history to review its evidence.",
       },
     ],
   },

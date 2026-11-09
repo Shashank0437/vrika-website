@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Vrika",
-  description: "Autonomous offensive security operations platform",
+  description: "Web, mobile, and cloud security with AI-guided assessments, runtime evidence, and enterprise governance.",
   other: {
     "strix-verification": "strix-verify-2d615830b1651e5299956b79efdb5f3c",
   },

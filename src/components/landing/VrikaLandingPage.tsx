@@ -236,8 +236,8 @@ export function VrikaLandingPage() {
           <div className="relative z-10 mx-auto max-w-7xl px-6">
             <SectionHeading
               kicker="The platform"
-              title="Four integrated modules, one platform"
-              body="VRIKA unifies conversational assessment, autonomous tool orchestration, cloud posture management, and enterprise governance into a single offensive security platform."
+              title="Five integrated modules, one platform"
+              body="VRIKA unifies web assessments, mobile application analysis, AI tool orchestration, cloud posture management, and enterprise governance."
             />
             <div className="mt-16">
               <ModuleShowcase modules={PLATFORM_MODULES} />
@@ -249,8 +249,8 @@ export function VrikaLandingPage() {
           <div className="mx-auto max-w-7xl px-6">
             <SectionHeading
               kicker="How it works"
-              title="Two workflows. One security platform."
-              body="Explore the Cloud Security dashboard and the penetration-testing workspace. Follow the product screens from setup to results, or pause and move through each step at your own pace."
+              title="Three workflows. One security platform."
+              body="Web, mobile, and cloud security: from an authorized assessment to findings, runtime evidence, and reports."
             />
             <div className="mt-12">
               <WorkflowDemo workflows={WORKFLOWS} />

@@ -5,7 +5,6 @@ import type { PlatformModule } from "@/components/landing/landing-data";
 import { ModuleVisual } from "@/components/landing/ModuleVisual";
 import { MaterialSymbol } from "@/components/ui/MaterialSymbol";
 
-/** Interactive tabbed explorer for the four platform modules. */
 export function ModuleShowcase({ modules }: { modules: PlatformModule[] }) {
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -46,7 +45,7 @@ export function ModuleShowcase({ modules }: { modules: PlatformModule[] }) {
       <div
         role="tablist"
         aria-label="Platform modules"
-        className="grid gap-px overflow-hidden rounded-xl border border-outline-variant bg-outline-variant sm:grid-cols-2 lg:grid-cols-4"
+        className="grid gap-px overflow-hidden rounded-xl border border-outline-variant bg-outline-variant sm:grid-cols-2 lg:grid-cols-5"
       >
         {modules.map((m, i) => {
           const selected = i === active;
