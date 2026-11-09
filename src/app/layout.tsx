@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { GlobalPendingApiOverlay } from "@/components/global/GlobalPendingApiOverlay";
 import { AuthProvider } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";

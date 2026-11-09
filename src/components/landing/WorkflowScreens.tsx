@@ -208,7 +208,7 @@ export function MobileWorkflowScreen({ screen, action }: { screen: MobileScreen;
           <div className={styles.productTabs}><span>Overview</span><span data-selected="true">Manifest analysis</span><span>Code analysis</span><span>Permissions</span></div>
           <h5>Cleartext traffic permitted</h5>
           <dl className={styles.detailList} style={{ marginTop: 16 }}><div><dt>Severity</dt><dd><Badge tone="risk">High</Badge></dd></div><div><dt>Evidence</dt><dd>AndroidManifest.xml</dd></div><div><dt>Risk</dt><dd>Unencrypted connections may expose application traffic.</dd></div><div><dt>Remediation</dt><dd>Require HTTPS and restrict cleartext access in the network security configuration.</dd></div></dl>
-          <div className={styles.console} style={{ marginTop: 18 }}><span>android:usesCleartextTraffic="true"</span></div>
+          <div className={styles.console} style={{ marginTop: 18 }}><span>{'android:usesCleartextTraffic="true"'}</span></div>
         </>
       )}
       {screen === "mobile-dynamic" && (
